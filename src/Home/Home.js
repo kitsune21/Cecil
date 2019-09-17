@@ -5,8 +5,12 @@ class Home extends Component {
   render() {
     return(
       <div>
-        <MenuBar />
-        <p>Sup</p>
+        <header>
+          <MenuBar />
+        </header>
+        <section id='page-content'>
+          <p>Sup</p>
+        </section>
       </div>
     )
   }
