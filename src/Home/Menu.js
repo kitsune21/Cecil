@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react';
 import {TopBar,TopBarRight,TopBarLeft} from 'react-foundation';
 import {Menu,MenuItem,MenuText} from 'react-foundation';
@@ -24,9 +23,9 @@ class MenuBar extends Component {
           <TopBarLeft>
             <Menu>
               <MenuText>Cecil</MenuText>
-              <MenuItem isActive={this.props.homeActive}><a onClick={this.handleClick}>Home</a></MenuItem>
-              <MenuItem isActive={this.props.resumeActive}><a onClick={this.handleClick}>Resume</a></MenuItem>
-              <MenuItem><a>Tools</a></MenuItem>
+              <MenuItem isActive={this.props.homeActive}><a href='/'>Home</a></MenuItem>
+              <MenuItem isActive={this.props.resumeActive}><a href='/resume'>Resume</a></MenuItem>
+              <MenuItem>Tools</MenuItem>
             </Menu>
           </TopBarLeft>
           <TopBarRight>

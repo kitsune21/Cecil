@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import MenuBar from './Menu.js';
-import HomeContent from './HomeContent.js'
-import Resume from './Resume.js';
+import HomeContent from './HomeContent.js';
 
 class Home extends Component {
   constructor(props) {
@@ -21,12 +19,7 @@ class Home extends Component {
   render() {
     return(
       <div>
-        <header>
-          <MenuBar changePage={this.handleClick} homeActive={this.state.homeActive} resumeActive={!this.state.homeActive}/>
-        </header>
-        <section id='page-content'>
-          {this.state.homeActive ? <HomeContent /> : <Resume /> }
-        </section>
+        <HomeContent />
       </div>
     )
   }
