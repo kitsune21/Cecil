@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-//{id: , institution:'', href:'', start:'', end:'', recieved:''},
+//{id: , institution:'', href:'', start:'', end:'', recieved:'', },
 const data = [
-    {id: 1, institution:'DevPoint Labs', href:'https://www.devpointlabs.com/', start:'Aug 2019', end:'Oct 2019', recieved:'Part-Time Web Development Certificate'},
-    {id: 2, institution:'Desert Hills High School', href:'http://dhthunder.org', start:'', end:'May 2011', recieved:'Diploma'},
+    {id: 1, institution:'DevPoint Labs', href:'https://www.devpointlabs.com/', start:'Aug 2019', end:'Oct 2019', recieved:'Part-Time Web Development Certificate', },
+    {id: 2, institution:'Desert Hills High School', href:'http://dhthunder.org', start:'', end:'May 2011', recieved:'Diploma', },
 ];
 
 class Education extends Component {
