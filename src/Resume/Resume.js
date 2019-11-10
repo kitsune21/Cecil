@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import About from './About';
 import Education from './Education';
 import Work from './Work';
-import Portfolio from './Portfolio';
-import Awards from './Awards';
+import Websites from './Websites';
+// import Awards from './Awards';
 import Games from './Games';
 
 class Resume extends Component {
@@ -12,11 +12,11 @@ class Resume extends Component {
     return(
       <div>
         <About />
-        <Portfolio />
+        <Websites />
         <Games />
         <Work />
         <Education />
-        <Awards />
+        {/* <Awards /> */}
       </div>
     )
   }

@@ -4,6 +4,7 @@ import Home from './Home/Home.js';
 import { Switch, Route } from 'react-router-dom';
 import MenuBar from './Home/Menu';
 import Resume from './Resume/Resume';
+import Blog from './Blog/Blog';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route exact path='/resume' component={Resume} />
+        <Route exact path='/blog' component={Blog} />
       </Switch>
     </div>
   );

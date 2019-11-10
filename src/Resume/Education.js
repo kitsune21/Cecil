@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
 
+//{id: , institution:'', href:'', start:'', end:'', recieved:''},
+const data = [
+    {id: 1, institution:'DevPoint Labs', href:'https://www.devpointlabs.com/', start:'Aug 2019', end:'Oct 2019', recieved:'Part-Time Web Development Certificate'},
+    {id: 2, institution:'Desert Hills High School', href:'http://dhthunder.org', start:'', end:'May 2011', recieved:'Diploma'},
+];
+
 class Education extends Component {
 
   render() {
     return(
       <div className='education'>
           <h3>Education:</h3>
-          <ul>
-            <li>DevPoint Labs</li>
-            <li>Aug 2019-October 2019</li>
-            <li>Part-Time Web Development</li>
-          </ul>
-          <ul>
-            <li>Desert Hills High School</li>
-            <li>May 2011</li>
-            <li>Diploma</li>
-          </ul>
+          {
+            data.map( entry =>
+              <ul key={entry.id}>
+                <li><a href={entry.href} rel='noopener noreferrer' target='_blank'>{entry.institution}</a></li>
+                <li>{entry.start === '' ? null : entry.start + '-'}{entry.end}</li>
+                <li>{entry.recieved}</li>
+              </ul>
+            )
+          }
         </div>
     )
   }

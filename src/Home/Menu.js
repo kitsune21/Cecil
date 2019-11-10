@@ -4,17 +4,6 @@ import {Menu,MenuItem,MenuText} from 'react-foundation';
 // import {Icon} from 'react-foundation';
 
 class MenuBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-
-    }
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(e) {
-    this.props.changePage();
-  }
 
   render() {
     return (
@@ -25,6 +14,7 @@ class MenuBar extends Component {
               <MenuText>Cecil</MenuText>
               <MenuItem isActive={this.props.homeActive}><a href='/'>Home</a></MenuItem>
               <MenuItem isActive={this.props.resumeActive}><a href='/resume'>Resume</a></MenuItem>
+              <MenuItem isActive={this.props.blogActive}><a href='/blog'>Blog</a></MenuItem>
               <MenuItem>Tools</MenuItem>
             </Menu>
           </TopBarLeft>
