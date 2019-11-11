@@ -29,16 +29,17 @@ class Blog extends Component {
   renderBlogs = (category_id) => {
     return(
       blogs.map( blog =>
-        <ul key={blog.id}>
-          {blog.category_id === category_id ? <li>{blog.title}</li> : null}
-        </ul>
+        blog.category_id === category_id ? <li key={blog.id}>{blog.title}</li> : null
       )
     )
   }
 
   renderActiveBlog = () => {
     return(
-      <BlogEntry blog_id={this.state.activeBlog} />
+      <div>
+        <h3>{blogs[this.state.activeBlog - 1].title}</h3>
+        <BlogEntry blog_id={this.state.activeBlog} />
+      </div>
     )
   }
 
@@ -50,7 +51,9 @@ class Blog extends Component {
           categories.map( category =>
             <div key={category.id}>
               <h3>{category.title}</h3>
-              {this.renderBlogs(category.id)}
+              <ul>
+                {this.renderBlogs(category.id)}
+              </ul>
             </div>
           )
         }
