@@ -26,19 +26,11 @@ const blog_data = [
 
 class BlogEntry extends Component {
 
-  state = { myData: [], }
-
-  componentDidMount() {
-    let myData = [];
-    blog_data.forEach( data => {
-      if(data.blog_id === this.props.blog_id){
-        myData.push(data)
-      }
-    })
-    this.setState({myData: myData})
+  componentDidUpdate() {
+    console.log(this.props.blog_id)
   }
 
-  renderEntry = (data) => {
+   renderEntry = (data) => {
     switch(data.entry_type_id) {
       case 1:
         return(<Text key={data.id} value={data.value} />);
@@ -57,8 +49,8 @@ class BlogEntry extends Component {
     return(
       <div>
         {
-          this.state.myData.map( data => 
-            this.renderEntry(data)  
+          blog_data.map( data => 
+            data.blog_id === this.props.blog_id ? this.renderEntry(data) : null
           )
         }
       </div>

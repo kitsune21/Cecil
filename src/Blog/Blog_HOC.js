@@ -26,20 +26,15 @@ class Blog extends Component {
     this.setState({activeBlog: newBlog})
   }
 
+  handleClick = (e) => {
+    this.setActiveBlog(e.target.id);
+  }
+
   renderBlogs = (category_id) => {
     return(
       blogs.map( blog =>
-        blog.category_id === category_id ? <li key={blog.id}>{blog.title}</li> : null
+        blog.category_id === category_id ? <li key={blog.id}><button id={blog.id} onClick={this.handleClick}>{blog.title}</button></li> : null
       )
-    )
-  }
-
-  renderActiveBlog = () => {
-    return(
-      <div>
-        <h3>{blogs[this.state.activeBlog - 1].title}</h3>
-        <BlogEntry blog_id={this.state.activeBlog} />
-      </div>
     )
   }
 
@@ -58,7 +53,8 @@ class Blog extends Component {
           )
         }
         <h2>Active Entry:</h2>
-        {this.renderActiveBlog()}
+        <h3>{blogs[this.state.activeBlog - 1].title}</h3>
+        <BlogEntry blog_id={this.state.activeBlog} />
       </div>
     )
   }
