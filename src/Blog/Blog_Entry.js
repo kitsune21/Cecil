@@ -26,10 +26,6 @@ const blog_data = [
 
 class BlogEntry extends Component {
 
-  componentDidUpdate() {
-    console.log(this.props.blog_id)
-  }
-
    renderEntry = (data) => {
     switch(data.entry_type_id) {
       case 1:
@@ -48,9 +44,10 @@ class BlogEntry extends Component {
   render() {
     return(
       <div>
+        <h3>{this.props.myBlog.title}</h3>
         {
           blog_data.map( data => 
-            data.blog_id === this.props.blog_id ? this.renderEntry(data) : null
+            data.blog_id === this.props.myBlog.id ? this.renderEntry(data) : null
           )
         }
       </div>
