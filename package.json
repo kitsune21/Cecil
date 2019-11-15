@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "antd": "^3.23.2",
+    "devicon": "^2.2.0",
     "foundation-sites": "^6.5.3",
     "react": "^16.9.0",
+    "react-devicon": "^0.1.9",
     "react-dom": "^16.9.0",
     "react-foundation": "^0.9.6",
     "react-router": "^5.1.2",

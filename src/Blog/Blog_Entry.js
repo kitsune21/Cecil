@@ -43,7 +43,7 @@ class BlogEntry extends Component {
 
   render() {
     return(
-      <div>
+      <div style={{float: "right"}}>
         <h3>{this.props.myBlog.title}</h3>
         {
           blog_data.map( data => 

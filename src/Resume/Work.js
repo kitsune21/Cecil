@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import WorkEntry from './Work/WorkEntry';
 
 //{id: , job_id: null, company:'', href:'', location:'', start:'', end:'', title:'', description:'', },
 const data = [
@@ -10,6 +11,8 @@ const data = [
 ];
 
 class Work extends Component {
+
+  state = {timeline: false}
 
   renderOtherJobs = (myID) => {
     let newEntries = [];
@@ -38,15 +41,11 @@ class Work extends Component {
           {
             data.map( entry =>
               !entry.job_id ?
-              <ul key={entry.id}>
-                <li><a href={entry.href} rel='noopener noreferrer' target='_blank'>{entry.company}</a> ({entry.location}) - {entry.start} - {entry.end}</li>
-                <li>{entry.title}</li>
-                <li>{entry.description}</li>
-                {this.renderOtherJobs(entry.id)}
-              </ul>  :
+              <WorkEntry entry={entry}/>  :
               null
             )
           }
+          <WorkEntry />
         </div>
     )
   }
