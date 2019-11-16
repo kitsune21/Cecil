@@ -20,15 +20,7 @@ class Work extends Component {
       entry.job_id === myID ? newEntries.push(entry) : null
     )
     if(newEntries){
-      return(
-        newEntries.map(newEntry =>
-          <ul key={newEntry.id}>
-            <li><a href={newEntry.href} rel='noopener noreferrer' target='_blank'>{newEntry.company}</a> ({newEntry.location}) - {newEntry.start} - {newEntry.end}</li>
-            <li>{newEntry.title}</li>
-            <li>{newEntry.description}</li>
-          </ul>
-        )
-     )
+      return newEntries
     } else {
       return null
     }
@@ -41,7 +33,7 @@ class Work extends Component {
           {
             data.map( entry =>
               !entry.job_id ?
-              <WorkEntry entry={entry}/>  :
+              <WorkEntry key={entry.id} entry={entry} otherEntries={this.renderOtherJobs(entry.id)}/>  :
               null
             )
           }
