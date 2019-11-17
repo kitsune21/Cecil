@@ -1,0 +1,13 @@
+#menu {
+  width: 98%;
+}
+
+#menuItem {
+  display: inline;
+  margin-right: 1%;
+  color: black;
+}
+
+#menuItem a {
+  color: black;
+}

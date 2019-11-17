@@ -1,22 +1,17 @@
 import React, {Component} from 'react';
-import {TopBar,TopBarLeft} from 'react-foundation';
-import {Menu,MenuItem,MenuText} from 'react-foundation';
+import './Menu.css'
 
 class MenuBar extends Component {
 
   render() {
     return (
       <div>
-        <TopBar className='my-top-bar-right'>
-          <TopBarLeft>
-            <Menu>
-              <MenuText>Cecil Thomas</MenuText>
-              <MenuItem isActive={this.props.homeActive}><a href='/'>Home</a></MenuItem>
-              <MenuItem isActive={this.props.resumeActive}><a href='/resume'>Resume</a></MenuItem>
-              <MenuItem isActive={this.props.blogActive}><a href='/blog'>Blog</a></MenuItem>
-            </Menu>
-          </TopBarLeft>
-        </TopBar>
+        <ul id='menu'>
+          <li id='menuItem'>Cecil Thomas</li>
+          <li id='menuItem'><a href='/'>Home</a></li>
+          <li id='menuItem'><a href='/resume'>Resume</a></li>
+          <li id='menuItem'><a href='/blog'>Blog</a></li>
+        </ul>
       </div>
     )
   }
