@@ -7,10 +7,10 @@ class MenuBar extends Component {
     return (
       <div>
         <ul id='menu'>
-          <li id='menuItem'>Cecil Thomas</li>
+          <li id='menuTitle'>Cecil Thomas</li>
           <li id='menuItem'><a href='/'>Home</a></li>
           <li id='menuItem'><a href='/resume'>Resume</a></li>
-          <li id='menuItem'><a href='/blog'>Blog</a></li>
+          {/* <li id='menuItem'><a href='/blog'>Blog</a></li> */}
         </ul>
       </div>
     )

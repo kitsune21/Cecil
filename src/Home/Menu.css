@@ -8,6 +8,12 @@
   color: black;
 }
 
+#menuTitle {
+  font-size: 27px;
+  display: inline;
+  margin-right: 20px;
+}
+
 #menuItem a {
   color: black;
 }

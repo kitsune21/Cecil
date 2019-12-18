@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import ItemsCarousel from 'react-items-carousel';
 
 //{id: , href:'', text:'', description:'', tech:'', },
 const data = [
@@ -7,24 +8,35 @@ const data = [
   {id: 3, href:'https://digitalglovebox.herokuapp.com/', text:'Digital Glovebox', description:'Capstone project for DevPoint Labs, built in collaboration with 3 others.', tech:'Ruby-on-Rails, React, Postgres', },
 ];
 
-class Websites extends Component {
+const Websites = () => {
 
-  render() {
+  const [activeItemIndex, setActiveItemIndex] = useState(0);
     return(
-      <div className='portfolio'>
+      <div className='portfolio' style={{width: '50%', paddingLeft: '30px'}}>
         <h3>Websites:</h3>
+        <ItemsCarousel
+          infiniteLoop
+          gutter={5}
+          numberOfCards={2}
+          activeItemIndex={activeItemIndex}
+          requestToChangeActive={setActiveItemIndex}
+          leftChevron={<button>{'<'}</button>} 
+          rightChevron={<button>{'>'}</button>}
+          outsideChevron
+          chevronWidth={20}
+        >
         {
-            data.map( entry => 
-              <ul key={entry.id}>
-                <li><a href={entry.href} target='_blank' rel='noopener noreferrer'>{entry.text}</a></li>
-                <li>{entry.description}</li>
-                <li>Tech: {entry.tech}</li>
-              </ul>
-            )
-          }
+          data.map( entry => 
+            <div key={entry.id} style={{ height: 200, width: '100%', background: '#EEE' }}>
+              <p><a href={entry.href} target='_blank' rel='noopener noreferrer'>{entry.text}</a></p>
+              <p>{entry.description}</p>
+              <p>Tech: {entry.tech}</p>
+            </div>
+          )
+        }
+        </ItemsCarousel>
       </div>
     )
-  }
 }
 
 export default Websites;

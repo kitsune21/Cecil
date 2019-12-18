@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import About from './About';
+// import About from './About';
 import Education from './Education';
 import Work from './Work';
 import Websites from './Websites';
@@ -11,7 +11,7 @@ class Resume extends Component {
   render() {
     return(
       <div>
-        <About />
+        {/* <About /> */}
         <Websites />
         <Games />
         <Work />
