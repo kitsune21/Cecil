@@ -9,6 +9,7 @@ class MenuBar extends Component {
         <ul id='menu'>
           <li id='menuTitle'>Cecil Thomas</li>
           <li id='menuItem'><a href='/'>Home</a></li>
+          <li id='menuItem'><a href='/movies'>Movie Reviews</a></li>
           <li id='menuItem'><a href='/resume'>Resume</a></li>
           {/* <li id='menuItem'><a href='/blog'>Blog</a></li> */}
         </ul>

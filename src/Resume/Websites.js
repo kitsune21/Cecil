@@ -27,7 +27,7 @@ const Websites = () => {
         >
         {
           data.map( entry => 
-            <div key={entry.id} style={{ height: 200, width: '100%', background: '#EEE' }}>
+            <div key={entry.id} style={{ height: 200, width: '100%', background: '#EEE', padding: '5px' }}>
               <p><a href={entry.href} target='_blank' rel='noopener noreferrer'>{entry.text}</a></p>
               <p>{entry.description}</p>
               <p>Tech: {entry.tech}</p>

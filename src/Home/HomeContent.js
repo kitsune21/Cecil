@@ -6,7 +6,6 @@ class HomeContent extends Component {
     return(
       <div>
         <div id="home">
-          
         </div>
       </div>
     )

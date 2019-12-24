@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import WorkEntry from './Work/WorkEntry';
+import ItemsCarousel from 'react-items-carousel';
 
 //{id: , job_id: null, company:'', href:'', location:'', start:'', end:'', title:'', description:'', },
 const data = [
@@ -12,7 +13,9 @@ const data = [
 
 class Work extends Component {
 
-  state = {timeline: false}
+  state = {
+    activeItemIndex: 0,
+  };
 
   renderOtherJobs = (myID) => {
     let newEntries = [];
@@ -26,10 +29,23 @@ class Work extends Component {
     }
   }
 
+  onChange = value => this.setState({ activeItemIndex: value });
+
   render() {
     return(
-      <div className='work'>
+      <div className='work' style={{width: '50%', paddingLeft: '30px'}}>
           <h3>Work:</h3>
+          <ItemsCarousel
+            infiniteLoop
+            gutter={5}
+            numberOfCards={2}
+            activeItemIndex={this.state.activeItemIndex}
+            requestToChangeActive={this.onChange}
+            leftChevron={<button>{'<'}</button>} 
+            rightChevron={<button>{'>'}</button>}
+            outsideChevron
+            chevronWidth={20}
+          >
           {
             data.map( entry =>
               !entry.job_id ?
@@ -37,7 +53,7 @@ class Work extends Component {
               null
             )
           }
-          <WorkEntry />
+          </ItemsCarousel>
         </div>
     )
   }

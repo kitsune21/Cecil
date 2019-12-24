@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import MenuBar from './Home/Menu';
 import Resume from './Resume/Resume';
 import Blog from './Blog/Blog_HOC';
+import MovieReview from './Home/Movie/MovieReview';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route exact path='/resume' component={Resume} />
         <Route exact path='/blog/' component={Blog} />
         <Route exact path='/blog/:blogId' component={Blog} />
+        <Route exact path='/movies' component={MovieReview}/>
       </Switch>
     </div>
   );

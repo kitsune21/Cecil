@@ -14,7 +14,7 @@ class WorkEntry extends Component {
     const { entry } = this.props;
     if(entry) {
       return(
-        <ul key={entry.id}>
+        <ul key={entry.id} style={{ height: 200, width: '100%', background: '#EEE', padding: '5px', listStyle: 'none'}}>
           <li><a href={entry.href} rel='noopener noreferrer' target='_blank'>{entry.company}</a> ({entry.location}) - {entry.start} - {entry.end}</li>
           <li>{entry.title}</li>
           <li>{entry.description}</li>
