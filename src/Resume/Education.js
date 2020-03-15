@@ -1,25 +1,38 @@
 import React, { Component } from 'react';
-
-//{id: , institution:'', href:'', start:'', end:'', recieved:'', },
-const data = [
-    {id: 1, institution:'DevPoint Labs', href:'https://www.devpointlabs.com/', start:'Aug 2019', end:'Oct 2019', recieved:'Part-Time Web Development Certificate', },
-    {id: 2, institution:'Desert Hills High School', href:'http://dhthunder.org', start:'', end:'May 2011', recieved:'Diploma', },
-];
+import axios from 'axios';
 
 class Education extends Component {
+  
+  state = {education: null}
+
+  componentDidMount() {
+    axios({
+      method: 'GET',
+      url: 'http://localhost:3001/api/education'
+    })
+    .then(data => {
+      this.setState({education: data.data.data})
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
 
   render() {
     return(
-      <div className='education'>
+      <div className='portfolio' style={{width: '50%', paddingLeft: '30px'}}>
           <h3>Education:</h3>
           {
-            data.map( entry =>
-              <ul key={entry.id}>
-                <li><a href={entry.href} rel='noopener noreferrer' target='_blank'>{entry.institution}</a></li>
-                <li>{entry.start === '' ? null : entry.start + '-'}{entry.end}</li>
-                <li>{entry.recieved}</li>
+            this.state.education !== null ?
+            this.state.education.map( entry =>
+              <ul key={entry.ID}>
+                <li><a href={entry.Href} rel='noopener noreferrer' target='_blank'>{entry.Institution}</a></li>
+                <li>{entry.Start_Date === null ? null : this.props.returnFormattedDate(entry.Start_Date) + '-'}{this.props.returnFormattedDate(entry.End_Date)}</li>
+                <li>{entry.Recieved}</li>
               </ul>
             )
+            :
+            <p>Loading...</p>
           }
         </div>
     )

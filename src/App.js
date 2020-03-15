@@ -6,6 +6,9 @@ import MenuBar from './Home/Menu';
 import Resume from './Resume/Resume';
 import Blog from './Blog/Blog_HOC';
 import MovieReview from './Home/Movie/MovieReview';
+import BucketList from './Home/BucketList/BucketList';
+import GasTracker from './Tools/GasTracker/GasTracker';
+import Admin from './Home/Admin/Admin';
 
 
 function App() {
@@ -18,6 +21,9 @@ function App() {
         <Route exact path='/blog/' component={Blog} />
         <Route exact path='/blog/:blogId' component={Blog} />
         <Route exact path='/movies' component={MovieReview}/>
+        <Route exact path='/bucketlist' component={BucketList} />
+        <Route exact path='/gas_tracker' component={GasTracker} />
+        <Route exact path='/____admin' component={Admin} />
       </Switch>
     </div>
   );

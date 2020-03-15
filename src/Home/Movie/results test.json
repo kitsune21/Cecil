@@ -1,0 +1,206 @@
+{
+  "status": "success",
+  "reviews": [
+    {
+      "ID": 1,
+      "Title": "Knives Out",
+      "Cecil_Rank": 3,
+      "Director": "Rian Johnson",
+      "Genre": "Murder Mystery",
+      "Rated": "PG-13",
+      "Release": "2019-11-27T07:00:00.000Z",
+      "Writer": "Rian Johnson",
+      "Plot": "After a renowned crime novelist is found dead at his home, dashing Detective Benoit Blanc appears at the estate to investigate the murder. Blanc encounters family lies and more questions as he works to uncover answers to the authors mysterious death.",
+      "Imdb_ID": "tt8946378",
+      "Poster_URL": "https://m.media-amazon.com/images/M/MV5BMGUwZjliMTAtNzAxZi00MWNiLWE2NzgtZGUxMGQxZjhhNDRiXkEyXkFqcGdeQXVyNjU1NzU3MzE@._V1_SX300.jpg",
+      "rankings": [
+        {
+          "ID": 16,
+          "Review_ID": 1,
+          "Category_ID": 1,
+          "Value": 7,
+          "Category_Name": "Cinematography"
+        },
+        {
+          "ID": 17,
+          "Review_ID": 1,
+          "Category_ID": 2,
+          "Value": 8,
+          "Category_Name": "Pacing"
+        },
+        {
+          "ID": 18,
+          "Review_ID": 1,
+          "Category_ID": 3,
+          "Value": 6,
+          "Category_Name": "Music/Sound"
+        },
+        {
+          "ID": 19,
+          "Review_ID": 1,
+          "Category_ID": 4,
+          "Value": 7,
+          "Category_Name": "Re-Watchability"
+        },
+        {
+          "ID": 20,
+          "Review_ID": 1,
+          "Category_ID": 5,
+          "Value": 8,
+          "Category_Name": "Recommendation"
+        }
+      ]
+    },
+    {
+      "ID": 2,
+      "Title": "JoJo Rabbit",
+      "Cecil_Rank": 1,
+      "Director": "Taika Waititi",
+      "Genre": "Comedy, Drama, War",
+      "Rated": "PG-13",
+      "Release": "2019-11-08T07:00:00.000Z",
+      "Writer": "Taika Waititi (screenplay), Christine Leunens (novel)",
+      "Plot": "A young boy in Hitlers army finds out his mother is hiding a Jewish girl in their home.",
+      "Imdb_ID": "tt2584384",
+      "Poster_URL": "https://m.media-amazon.com/images/M/MV5BZjU0Yzk2MzEtMjAzYy00MzY0LTg2YmItM2RkNzdkY2ZhN2JkXkEyXkFqcGdeQXVyNDg4NjY5OTQ@._V1_SX300.jpg",
+      "rankings": [
+        {
+          "ID": 1,
+          "Review_ID": 2,
+          "Category_ID": 1,
+          "Value": 7,
+          "Category_Name": "Cinematography"
+        },
+        {
+          "ID": 2,
+          "Review_ID": 2,
+          "Category_ID": 2,
+          "Value": 8,
+          "Category_Name": "Pacing"
+        },
+        {
+          "ID": 3,
+          "Review_ID": 2,
+          "Category_ID": 3,
+          "Value": 7,
+          "Category_Name": "Music/Sound"
+        },
+        {
+          "ID": 4,
+          "Review_ID": 2,
+          "Category_ID": 4,
+          "Value": 8,
+          "Category_Name": "Re-Watchability"
+        },
+        {
+          "ID": 5,
+          "Review_ID": 2,
+          "Category_ID": 5,
+          "Value": 8,
+          "Category_Name": "Recommendation"
+        }
+      ]
+    },
+    {
+      "ID": 3,
+      "Title": "The Prestige",
+      "Cecil_Rank": 2,
+      "Director": "Christopher Nolan",
+      "Genre": "Drama, Mystery, Sci-Fi, Thriller",
+      "Rated": "PG-13",
+      "Release": "2006-10-20T06:00:00.000Z",
+      "Writer": "Jonathan Nolan (screenplay), Christopher Nolan (screenplay), Christopher Priest (novel)",
+      "Plot": "After a tragic accident, two stage magicians engage in a battle to create the ultimate illusion while sacrificing everything they have to outwit each other.",
+      "Imdb_ID": "tt0482571",
+      "Poster_URL": "https://m.media-amazon.com/images/M/MV5BMjA4NDI0MTIxNF5BMl5BanBnXkFtZTYwNTM0MzY2._V1_SX300.jpg",
+      "rankings": [
+        {
+          "ID": 6,
+          "Review_ID": 3,
+          "Category_ID": 1,
+          "Value": 8,
+          "Category_Name": "Cinematography"
+        },
+        {
+          "ID": 7,
+          "Review_ID": 3,
+          "Category_ID": 2,
+          "Value": 7,
+          "Category_Name": "Pacing"
+        },
+        {
+          "ID": 8,
+          "Review_ID": 3,
+          "Category_ID": 3,
+          "Value": 5,
+          "Category_Name": "Music/Sound"
+        },
+        {
+          "ID": 9,
+          "Review_ID": 3,
+          "Category_ID": 4,
+          "Value": 8,
+          "Category_Name": "Re-Watchability"
+        },
+        {
+          "ID": 10,
+          "Review_ID": 3,
+          "Category_ID": 5,
+          "Value": 8,
+          "Category_Name": "Recommendation"
+        }
+      ]
+    },
+    {
+      "ID": 4,
+      "Title": "Klaus",
+      "Cecil_Rank": 4,
+      "Director": "Sergio Pablos, Carlos Martínez López(co-director)",
+      "Genre": "Animation, Adventure, Comedy, Family",
+      "Rated": "PG",
+      "Release": "2019-11-15T07:00:00.000Z",
+      "Writer": "Sergio Pablos (original story by), Sergio Pablos (screenplay by), Jim Mahoney (screenplay by), Zach Lewis (screenplay by)",
+      "Plot": "A simple act of kindness always sparks another, even in a frozen, faraway place. When Smeerensburgs new postman, Jesper, befriends toymaker Klaus, their gifts melt an age-old feud and deliver a sleigh full of holiday traditions.",
+      "Imdb_ID": "tt4729430",
+      "Poster_URL": "https://m.media-amazon.com/images/M/MV5BMWYwOThjM2ItZGYxNy00NTQwLWFlZWEtM2MzM2Q5MmY3NDU5XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg",
+      "rankings": [
+        {
+          "ID": 11,
+          "Review_ID": 4,
+          "Category_ID": 1,
+          "Value": 7,
+          "Category_Name": "Cinematography"
+        },
+        {
+          "ID": 12,
+          "Review_ID": 4,
+          "Category_ID": 2,
+          "Value": 8,
+          "Category_Name": "Pacing"
+        },
+        {
+          "ID": 13,
+          "Review_ID": 4,
+          "Category_ID": 3,
+          "Value": 6,
+          "Category_Name": "Music/Sound"
+        },
+        {
+          "ID": 14,
+          "Review_ID": 4,
+          "Category_ID": 4,
+          "Value": 6,
+          "Category_Name": "Re-Watchability"
+        },
+        {
+          "ID": 15,
+          "Review_ID": 4,
+          "Category_ID": 5,
+          "Value": 8,
+          "Category_Name": "Recommendation"
+        }
+      ]
+    }
+  ],
+  "message": "Retrieved ALL movie reviews"
+}

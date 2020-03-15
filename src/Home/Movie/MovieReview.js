@@ -2,87 +2,78 @@ import React, { Component } from 'react';
 import StarRatings from 'react-star-ratings';
 import axios from 'axios';
 
-//{id: 'tt0482571', title: 'The Prestige', cecilRank: 2, rankings: [{name: 'Cinematography', value: 8}, {name: 'Pacing', value: 7}, {name: 'Music/Sound', value: 7}, {name: 'Re-Watchability', value: 8}, {name: 'Recommendation', value: 8}], content: [{spoiler: true, p: 'Spoiler'}, {spoiler: false, p: 'Spoiler Free'}], data: null},
-const data = [ 
-  {id: 'tt2584384', title: 'JoJo Rabbit', cecilRank: 1, content: [{spoiler: true, p: 'Spoiler'}, {spoiler: false, p: 'Spoiler Free'}], data: null},
-  {id: 'tt0482571', title: 'The Prestige', cecilRank: 2, content: [{spoiler: true, p: 'Spoiler'}, {spoiler: false, p: 'Spoiler Free'}], data: null},
-  {id: 'tt4729430', title: 'Klaus', cecilRank: 3, content: [{spoiler: true, p: 'Spoiler'}, {spoiler: false, p: 'Spoiler Free'}], data: null},
-];
-
-const rankingData = [
-  {movieID: 'tt2584384', name: 'Cinematography', value: 7}, {movieID: 'tt2584384', name: 'Pacing', value: 8}, {movieID: 'tt2584384', name: 'Music/Sound', value: 7}, {movieID: 'tt2584384', name: 'Re-Watchability', value: 8}, {movieID: 'tt2584384', name: 'Recommendation', value: 8},
-  {movieID: 'tt0482571', name: 'Cinematography', value: 8}, {movieID: 'tt0482571', name: 'Pacing', value: 7}, {movieID: 'tt0482571', name: 'Music/Sound', value: 5}, {movieID: 'tt0482571', name: 'Re-Watchability', value: 8}, {movieID: 'tt0482571', name: 'Recommendation', value: 8},
-  {movieID: 'tt4729430', name: 'Cinematography', value: 7}, {movieID: 'tt4729430', name: 'Pacing', value: 8}, {movieID: 'tt4729430', name: 'Music/Sound', value: 6}, {movieID: 'tt4729430', name: 'Re-Watchability', value: 6}, {movieID: 'tt4729430', name: 'Recommendation', value: 8}
-]
-
-const API_KEY = process.env.REACT_APP_OMDB_API_KEY;
-
-const omdbAPI = `http://www.omdbapi.com/?apikey=${API_KEY}&`
-
 class MovieReview extends Component {
 
   state={
     filterByRanking: 'Cecil Rank',
     spoilerFree: true,
-    data,
-    rankingData
+    toggleLeast: false,
+    rankingCategories: []
   }
 
   componentDidMount() {
-    //this.state.data.forEach(review => this.returnDataFromOMBD(review.id))
+    this.getMovieReviews();
+    this.getRankingCategories();
+  }
+
+  getMovieReviews = () => {
+    axios({
+      method: "GET",
+      url: "http://localhost:3001/api/movie_reviews",
+    })
+    .then( data => {
+      this.setState({data: data.data.reviews})
+    })
+    .catch( err => { console.log(err)});
+  }
+
+  getRankingCategories = () => {
+    axios({
+      method: "GET",
+      url: "http://localhost:3001/api/ranking_category"
+    })
+    .then( data => {
+      let rankingCategories = data.data.data.map(category => {
+        return category;
+      })
+      this.setState({rankingCategories});
+    })
+    .catch( err => {
+      console.log(err)
+    });
   }
 
   filterReviews = () => {
     if(this.state.filterByRanking === 'Cecil Rank'){
-      return this.state.data.sort((a, b) => (a.cecilRank > b.cecilRank) ? 1 : -1)
+      if(this.state.toggleLeast){
+        return this.state.data.sort((a, b) => (a.Cecil_Rank > b.Cecil_Rank) ? 1 : -1).reverse()
+      } else {
+        return this.state.data.sort((a, b) => (a.Cecil_Rank > b.Cecil_Rank) ? 1 : -1);
+      }
     } else {
       let returnMovieList = [];
       let listOfRanks = [];
-      listOfRanks = this.state.rankingData.map(rank => {
-        if(rank.name === this.state.filterByRanking){
-          return rank;
-        } else {
-          return null;
-        }
-      }) 
-      listOfRanks = listOfRanks.filter(rank => {return rank != null})
-      listOfRanks.sort((a, b) => (a.value < b.value) ? 1 : (a.value === b.value) ? ((this.returnCecilRank(a.movieID) > this.returnCecilRank(b.movieID)) ? 1 : -1) : -1 );
-      listOfRanks.forEach(rank => {
-        returnMovieList.push(this.state.data.filter(review => {return review.id === rank.movieID})[0])
+      this.state.data.forEach(review => {
+        review.rankings.forEach(rank => {
+          if(rank.Category_Name === this.state.filterByRanking){
+            listOfRanks.push(rank);
+          }
+        })
       })
-      return returnMovieList;
+      listOfRanks.sort((a, b) => (a.Value < b.Value) ? 1 : (a.Value === b.Value) ? ((this.returnCecilRank(a.Review_ID) > this.returnCecilRank(b.Review_ID)) ? 1 : -1) : -1 );
+      listOfRanks.forEach(rank => {
+        returnMovieList.push(this.state.data.filter(review => {return review.ID === rank.Review_ID})[0])
+      })
+      if(this.state.toggleLeast){
+        return returnMovieList.reverse();
+      } else {
+        return returnMovieList;
+      }
     }
   }
 
   returnCecilRank = (id) => {
-    return this.state.data.filter(review => {return review.id === id})[0].cecilRank
-  }
-
-  returnDataFromOMBD = (id) => {
-    axios({
-      method: 'GET',
-      url: omdbAPI + 'i=' + id
-    })
-    .then(omdbData => this.setState(prevState => ({
-      data: prevState.data.map(
-        entry => entry.id === omdbData.data.imdbID ? {...entry, data: omdbData} : entry
-      )
-    })))
-    .catch(data => console.log(data))
-  }
-
-  renderOMDBInfo = (data) => {
-    return(
-      <div>
-        <p>Director: {data.Director}</p>
-        <p>Genre: {data.Genre}</p> 
-        <p>Rated: {data.Rated}</p>
-        <p>Released: {data.Released}</p>
-        <p>Written By: {data.Writer}</p>
-        <p>Plot: {data.Plot}</p>
-        <img src={data.Poster} alt={`Poster of ${data.Title}`}/>
-      </div>
-    )
+    return this.state.data.filter(review => {return review.ID === id})[0].Cecil_Rank;
   }
 
   handleSpoilerChange = () => {
@@ -97,28 +88,12 @@ class MovieReview extends Component {
     }
   }
 
-  returnRankObject = (rank) => {
-    console.log(rank)
-    if(rank.name === 'Cinematography'){
-      return rank.value
-    }
-  }
-   
-  renderFilterByDropDown = () => {
-    return(
-      <select onChange={this.handleFilterChange}>
-        <option>Cecil Rank</option>
-        <option>Cinematography</option>
-        <option>Pacing</option>
-        <option>Music/Sound</option>
-        <option>Re-Watchability</option>
-        <option>Recommendation</option>
-      </select>
-    )
-  }
-
   handleFilterChange = (e) => {
     this.setState({filterByRanking: e.target.value})
+  }
+
+  handleToggleLeastChange = () => {
+    this.setState({toggleLeast: !this.state.toggleLeast})
   }
 
   render() {
@@ -126,42 +101,56 @@ class MovieReview extends Component {
       <div>
         <h2>Movie Reviews by Cecil:</h2>
         <p>Filter by: </p>
-        {this.renderFilterByDropDown()}
+        <select onChange={this.handleFilterChange}>
+          <option key={8}>Cecil Rank</option>
+          {
+            this.state.rankingCategories.map(category => 
+              <option key={category.ID}>{category.Name}</option>
+            )
+          }
+        </select>
         <p>Ties are won by the "Cecil Rank"</p>
+        <p>Toggle Least <input onChange={this.handleToggleLeastChange} checked={this.state.toggleLeast} type='checkbox'></input></p> 
+        <p>Spoiler Free? <input checked={this.state.spoilerFree} onChange={this.handleSpoilerChange} type='checkbox'></input></p>
         {
+          this.state.data ? 
           this.filterReviews().map(entry => 
-            <div key={entry.id}>
-              <h4>{entry.title}:</h4>
-              <h5>The Cecil Rank: #{entry.cecilRank}</h5>
+            <div key={entry.ID}>
+              <h4>{entry.Title}:</h4>
+              <h5>The Cecil Rank: #{entry.Cecil_Rank}</h5>
               {
-                this.state.rankingData.map((rank, i) =>
-                rank.movieID === entry.id ? 
+                entry.rankings.map((rank, i) =>
+                rank.Review_ID === entry.ID ? 
                 <div key={i}>
-                  <h5>{rank.name}: ({rank.value}/8)</h5>
+                  <h5>{rank.Category_Name}: ({rank.Value}/8)</h5>
                   <StarRatings 
-                    rating={rank.value}
+                    rating={rank.Value}
                     starRatedColor='orange'
                     numberOfStars={8}
-                    name={rank.name}
+                    name={rank.Category_Name}
                   />
                 </div> : null
                 )
               }
-              <h5>Review:</h5>
-              <p>Spoiler Free? <input checked={this.state.spoilerFree} onChange={this.handleSpoilerChange} type='checkbox'></input></p>
+              <h5>Review:</h5>              
               {
-                entry.content.map((paragraph, i) => 
-                  paragraph.spoiler ? <p style={this.returnSpoilerStyle()} key={i}>{paragraph.p}</p> : <p key={i}>{paragraph.p}</p>
+                entry.content.map(paragraph => 
+                  paragraph.Spoiler ? <p style={this.returnSpoilerStyle()} key={paragraph.ID}>{paragraph.Text}</p> : <p key={paragraph.ID}>{paragraph.Text}</p>
                 )
               }
               <h5>Movie Info:</h5>
               <div>
-                {
-                  entry.data ? this.renderOMDBInfo(entry.data.data) : null
-                }
+                <p>Director: {entry.Director}</p>
+                <p>Genre: {entry.Genre}</p> 
+                <p>Rated: {entry.Rated}</p>
+                <p>Released: {entry.Released}</p>
+                <p>Written By: {entry.Writer}</p>
+                <p>Plot: {entry.Plot}</p>
+                <img src={entry.Poster_URL} alt={`Poster of ${entry.Title}`}/>
               </div>
             </div>
-          )
+          ) :
+          <p>Loading...</p>
         }
       </div>
     )

@@ -1,24 +1,37 @@
 import React, { Component } from 'react';
-
-//{id: , href:'', text:'', description:'', released:'', },
-const data = [
-  {id: 1, href:'https://kitsune-23.itch.io/one-will-rise', text:'One Will Rise', description:'A 2-D fighting game where you only have one health left. Built as part of the GMTK game{jam} 2019', released:'August 4th, 2019', },
-];
+import axios from 'axios';
 
 class Games extends Component {
 
+  state = {
+    myGames: null
+  }
+
+  componentDidMount() {
+    axios({
+      method: 'GET',
+      url: "http://localhost:3001/api/games",
+    })
+    .then(data => {
+      this.setState({myGames: data.data.data});
+    })
+    .catch(err => {console.log(err)});
+  }
+
   render() {
     return(
-      <div>
+      <div className='portfolio' style={{width: '50%', paddingLeft: '30px'}}>
         <h3>Games:</h3>
         {
-          data.map( entry =>
-            <ul key={entry.id}>
-              <li><a href={entry.href} rel='noopener noreferrer' target='_blank'>{entry.text}</a></li>
-              <li>{entry.description}</li>
-              <li>Released: {entry.released}</li>
+          this.state.myGames !== null ?
+          this.state.myGames.map( entry =>
+            <ul key={entry.ID}>
+              <li><a href={entry.Href} rel='noopener noreferrer' target='_blank'>{entry.Title}</a></li>
+              <li>{entry.Description}</li>
+              <li>Released: {this.props.returnFormattedDate(entry.Released)}</li>
             </ul>
-          )
+          ) :
+          <p>Loading...</p>
         }
       </div>
     )

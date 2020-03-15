@@ -5,7 +5,7 @@ class WorkEntry extends Component {
   renderOthers = (others) => { 
     return(
       others.map(entry =>
-        <WorkEntry key={entry.id} entry={entry}/>  
+        <WorkEntry key={entry.ID} entry={entry}/>  
       )
     )
   }
@@ -14,10 +14,10 @@ class WorkEntry extends Component {
     const { entry } = this.props;
     if(entry) {
       return(
-        <ul key={entry.id} style={{ height: 200, width: '100%', background: '#EEE', padding: '5px', listStyle: 'none'}}>
-          <li><a href={entry.href} rel='noopener noreferrer' target='_blank'>{entry.company}</a> ({entry.location}) - {entry.start} - {entry.end}</li>
-          <li>{entry.title}</li>
-          <li>{entry.description}</li>
+        <ul key={entry.ID} style={{ height: 200, width: '100%', background: '#EEE', padding: '5px', listStyle: 'none'}}>
+          <li><a href={entry.Href} rel='noopener noreferrer' target='_blank'>{entry.Company}</a> ({entry.Location}) - {entry.start} - {entry.end}</li>
+          <li>{entry.Title}</li>
+          <li>{entry.Description}</li>
           {
             this.props.otherEntries ? this.renderOthers(this.props.otherEntries) : null
           }
