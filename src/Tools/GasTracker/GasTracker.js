@@ -5,7 +5,7 @@ class GasTracker extends Component {
 
   state = {
     filterOption: 'Date',
-    filterDirection: true /* true is least to great */,
+    filterDirection: false /* true is least to great */,
     recieptObject: {
       myDate: '',
       Total_Sale: '',
@@ -45,26 +45,27 @@ class GasTracker extends Component {
 
   filterReciepts = () => {
     if(this.state.filterDirection) {
-      return this.state.reciepts.sort((a, b) => (a[this.state.filterOption] > b[this.state.filterOption]) ? 1 : -1);
+      return this.state.reciepts.sort((a, b) => (a[this.state.filterOption] < b[this.state.filterOption]) ? 1 : -1);
     } else {
-      return this.state.reciepts.sort((a, b) => (a[this.state.filterOption] > b[this.state.filterOption]) ? 1 : -1).reverse();
+      return this.state.reciepts.sort((a, b) => (a[this.state.filterOption] < b[this.state.filterOption]) ? 1 : -1).reverse();
     }
   }
 
   updateFilter = e => {
+    //if they select the current one, just change the direction, else change option and direction
     if(this.state.filterOption === e.target.id) {
       this.setState({filterDirection: !this.state.filterDirection});
-    } else{
-      this.setState({filterOption: e.target.id, filterDirection: true});
+    } else {
+      this.setState({filterOption: e.target.id, filterDirection: false});
     }
   }
 
   displayDirection = id => {
     if(this.state.filterOption === id) {
       if(this.state.filterDirection) {
-        return '(DOWN)'
+        return ' (DOWN)'
       } else {
-        return '(UP)'
+        return ' (UP)'
       }
     }
   }
@@ -98,10 +99,10 @@ class GasTracker extends Component {
           <table>
             <thead>
               <tr>
-                <th id='myDate' onClick={this.updateFilter}>Date {this.displayDirection('myDate')}</th>
-                <th id='Total_Sale' onClick={this.updateFilter}>Total Sale {this.displayDirection('Total_Sale')}</th>
-                <th id='Gallons' onClick={this.updateFilter}>Gallons {this.displayDirection('Gallons')}</th>
-                <th id='Price' onClick={this.updateFilter}>Price {this.displayDirection('Price')}</th>
+                <th id='myDate' onClick={this.updateFilter}>Date{this.displayDirection('myDate')}</th>
+                <th id='Total_Sale' onClick={this.updateFilter}>Total Sale{this.displayDirection('Total_Sale')}</th>
+                <th id='Gallons' onClick={this.updateFilter}>Gallons{this.displayDirection('Gallons')}</th>
+                <th id='Price' onClick={this.updateFilter}>Price{this.displayDirection('Price')}</th>
                 <th>Grade</th>
                 <th>Location</th>
               </tr>
@@ -131,14 +132,11 @@ class GasTracker extends Component {
               this.state.report ?
               <>
               <p>Average days between: {this.state.report.averageDays}</p>
-              <p>Mean Sale: ${this.state.report.meanSale}</p>
-              <p>Median Sale:</p>
+              <p>Mean Sale: ${this.state.report.meanSale.toFixed(3)}</p>
               <p>Mean Gallons: {this.state.report.meanGallons}</p>
-              <p>Median Gallons:</p>
               <p>Highest Price: ${this.state.report.highPrice}</p>
               <p>Lowest Price: ${this.state.report.lowPrice}</p>
-              <p>Mean Price: ${this.state.report.meanPrice}</p>
-              <p>Median Price:</p>
+              <p>Mean Price: ${this.state.report.meanPrice.toFixed(3)}</p>
               <p>Favorite Location: {this.state.report.favoriteLocation}</p>
               </>
               : <p>Loading...</p>
