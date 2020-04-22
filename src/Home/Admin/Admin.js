@@ -33,6 +33,45 @@ class Admin extends Component {
     })
   }
 
+  handleSkillsSubmit = (event) => {
+    event.preventDefault();
+    axios({
+      method: "POST",
+      url: 'http://localhost:3001/api/skills/add',
+      data: {
+        Name: event.target.elements.skillsName.value,
+        Years: event.target.elements.skillsYears.value,
+        Active: event.target.elements.skillsActive.value,
+      }
+    })
+    .then(data => {
+      console.log(data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+  handleGamesSubmit = (event) => {
+    event.preventDefault();
+    axios({
+      method: "POST",
+      url: 'http://localhost:3001/api/games/add',
+      data: {
+        Href: event.target.elements.gameHref.value,
+        Title: event.target.elements.gameTitle.value,
+        Description: event.target.elements.gameDescription.value,
+        Released: event.target.elements.gameReleased.value
+      }
+    })
+    .then(data => {
+      console.log(data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
   render() {
     return(
       <>
@@ -50,11 +89,12 @@ class Admin extends Component {
           </div>
           <h3>Game</h3>
           <div>
-            <form>
-              <label>Href: <input></input></label>
-              <label>Title: <input></input></label>
-              <label>Description: <input></input></label>
-              <label>Released: <input></input></label>
+            <form onSubmit={this.handleGamesSubmit}>
+              <label>Href: <input id='gameHref' type='text'/></label>
+              <label>Title: <input id='gameTitle' type='text'/></label>
+              <label>Description: <input id='gameDescription' type='text'/></label>
+              <label>Released: <input id='gameReleased' type='date' /></label>
+              <button type='submit'>Submit</button>
             </form>
           </div>
           <h3>Work</h3>
@@ -82,9 +122,11 @@ class Admin extends Component {
           </div>
           <h3>Skills</h3>
           <div>
-            <form>
-              <label>Name: <input></input></label>
-              <label>Years: <input></input></label>
+            <form onSubmit={this.handleSkillsSubmit}>
+              <label>Name: <input id='skillsName' type='text'/></label>
+              <label>Years: <input id='skillsYears' type='text'/></label>
+              <label>Active: <input id='skillsActive' type='checkbox'/></label>
+              <button type="submit">Submit</button>
             </form>
           </div>
           <h2>Movie Reviews</h2>
