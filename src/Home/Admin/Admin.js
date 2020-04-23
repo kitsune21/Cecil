@@ -13,6 +13,10 @@ class Admin extends Component {
     ],
   }
 
+  componentDidMount() {
+    this.pullWorkData();
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
     axios({
@@ -72,6 +76,43 @@ class Admin extends Component {
     })
   }
 
+  pullWorkData = () => {
+    axios({
+      method: 'GET',
+      url: 'http://localhost:3001/api/work'
+    })
+    .then(data => {
+      this.setState({work: data.data.work})
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+  handleWorkSubmit = (event) => {
+    console.log(event.target.elements.workPrevious.value)
+    event.preventDefault();
+    axios({
+      method: "POST",
+      url: 'http://localhost:3001/api/work/add',
+      data: {
+        Company: event.target.elements.workCompany.value,
+        Href: event.target.elements.workHref.value,
+        Location: event.target.elements.workLocation.value,
+        Title: event.target.elements.workTitle.value,
+        Description: event.target.elements.workDescription.value,
+        Start_Date: event.target.elements.workStart.value,
+        End_Date: event.target.elements.workEnd.value,
+      }
+    })
+    .then(data => {
+      console.log(data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
   render() {
     return(
       <>
@@ -99,15 +140,24 @@ class Admin extends Component {
           </div>
           <h3>Work</h3>
           <div>
-            <form>
-              <label>Company: <input></input></label>
-              <label>Href: <input></input></label>
-              <label>Location: <input></input></label>
-              <label>Start Date: <input></input></label>
-              <label>End Date: <input></input></label>
-              <label>Title: <input></input></label>
-              <label>Description: <input></input></label>
-              <label>Previous Job: <select></select></label>
+            <form onSubmit={this.handleWorkSubmit}>
+              <label>Company: <input id='workCompany' type='text'/></label>
+              <label>Href: <input id='workHref' type='text'/></label>
+              <label>Location: <input id='workLocation' type='text'/></label>
+              <label>Start Date: <input id='workStart' type='date'/></label>
+              <label>End Date: <input id='workEnd' type='date'/></label>
+              <label>Title: <input id='workTitle' type='text'/></label>
+              <label>Description: <input id='workDescription' type='text'/></label>
+              <label>Previous Job: 
+                <select id='workPrevious'>
+                {
+                  this.state.work ? 
+                  this.state.work.map(item =>
+                    <option>{item.Company}</option>  
+                  ) : null
+                }
+                </select></label>
+              <button type='submit'>Submit</button>
             </form>
           </div>
           <h3>Education</h3>
