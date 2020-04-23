@@ -90,7 +90,6 @@ class Admin extends Component {
   }
 
   handleWorkSubmit = (event) => {
-    console.log(event.target.elements.workPrevious.value)
     event.preventDefault();
     axios({
       method: "POST",
@@ -103,6 +102,7 @@ class Admin extends Component {
         Description: event.target.elements.workDescription.value,
         Start_Date: event.target.elements.workStart.value,
         End_Date: event.target.elements.workEnd.value,
+        Previous_Job: event.target.elements.workPrevious.selectedOptions[0].id === 0 ? null : event.target.elements.workPrevious.selectedOptions[0].id
       }
     })
     .then(data => {
@@ -150,10 +150,11 @@ class Admin extends Component {
               <label>Description: <input id='workDescription' type='text'/></label>
               <label>Previous Job: 
                 <select id='workPrevious'>
+                  <option id='0'></option>
                 {
                   this.state.work ? 
                   this.state.work.map(item =>
-                    <option>{item.Company}</option>  
+                    <option key={item.ID} id={item.ID}>{item.Company}</option>  
                   ) : null
                 }
                 </select></label>
