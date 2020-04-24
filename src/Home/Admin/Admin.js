@@ -18,7 +18,6 @@ class Admin extends Component {
   }
 
   handleSubmit = (event) => {
-    event.preventDefault();
     axios({
       method: "POST",
       url: 'http://localhost:3001/api/websites/add',
@@ -38,7 +37,6 @@ class Admin extends Component {
   }
 
   handleSkillsSubmit = (event) => {
-    event.preventDefault();
     axios({
       method: "POST",
       url: 'http://localhost:3001/api/skills/add',
@@ -57,7 +55,6 @@ class Admin extends Component {
   }
 
   handleGamesSubmit = (event) => {
-    event.preventDefault();
     axios({
       method: "POST",
       url: 'http://localhost:3001/api/games/add',
@@ -90,7 +87,6 @@ class Admin extends Component {
   }
 
   handleWorkSubmit = (event) => {
-    event.preventDefault();
     axios({
       method: "POST",
       url: 'http://localhost:3001/api/work/add',
@@ -103,6 +99,26 @@ class Admin extends Component {
         Start_Date: event.target.elements.workStart.value,
         End_Date: event.target.elements.workEnd.value,
         Previous_Job: event.target.elements.workPrevious.selectedOptions[0].id === 0 ? null : event.target.elements.workPrevious.selectedOptions[0].id
+      }
+    })
+    .then(data => {
+      console.log(data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+  handleEducationSubmit = (event) => {
+    axios({
+      method: "POST",
+      url: 'http://localhost:3001/api/education/add',
+      data: {
+        Institution: event.target.elements.eduInstitution.value,
+        Href: event.target.elements.eduHref.value,
+        Start_Date: event.target.elements.eduStart.value,
+        End_Date: event.target.elements.eduEnd.value,
+        Recieved: event.target.elements.eduRecieved.value,
       }
     })
     .then(data => {
@@ -163,12 +179,13 @@ class Admin extends Component {
           </div>
           <h3>Education</h3>
           <div>
-            <form>
-              <label>Institution: <input></input></label>
-              <label>Href: <input></input></label>
-              <label>Start Date: <input></input></label>
-              <label>End Date: <input></input></label>
-              <label>Recieved: <input></input></label>
+            <form onSubmit={this.handleEducationSubmit}>
+              <label>Institution: <input id='eduInstitution' type='text'/></label>
+              <label>Href: <input id='eduHref' type='text'/></label>
+              <label>Start Date: <input id='eduStart' type='date'/></label>
+              <label>End Date: <input id='eduEnd' type='date'/></label>
+              <label>Recieved: <input id='eduRecieved' type='text'/></label>
+              <button type='submit'>Submit</button>
             </form>
           </div>
           <h3>Skills</h3>
