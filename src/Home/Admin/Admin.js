@@ -197,21 +197,6 @@ class Admin extends Component {
               <button type="submit">Submit</button>
             </form>
           </div>
-          <h2>Movie Reviews</h2>
-          <div>
-            <form>
-              <label>Title: <input></input></label>
-              <label>Imdb ID: <input></input></label>
-              <label>Cecil Rank: <input></input></label>
-              {
-                this.state.rankingCategory.map(category => 
-                  <label key={category.ID}>{category.Name} <input></input></label>
-                )
-              }
-              <label>Review: <input></input></label>
-            </form>
-          </div>
-          <h2>Bucket List</h2>
         </div>
       </>
     )

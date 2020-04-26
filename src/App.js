@@ -10,6 +10,7 @@ import BucketList from './Home/BucketList/BucketList';
 import GasTracker from './Tools/GasTracker/GasTracker';
 import Admin from './Home/Admin/Admin';
 import Ac from './AC-App/AcApp';
+import AdminMovieReview from './Home/Admin/AdminMovieReview';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route exact path='/bucketlist' component={BucketList} />
         <Route exact path='/gas_tracker' component={GasTracker} />
         <Route exact path='/____admin' component={Admin} />
+        <Route exact path='/____admin/movie' component={AdminMovieReview} />
         <Route exact path='/ac-app' component={Ac} />
       </Switch>
     </div>
