@@ -55,7 +55,7 @@ class AdminMovieReview extends Component {
               <li>Director: {this.state.movieInfo.Director}</li>
               <li>Genre: {this.state.movieInfo.Genre}</li>
               <li>Rated: {this.state.movieInfo.Rated}</li>
-              <li>Released: {this.state.movieInfo.Released}</li>
+              <li>Release: {this.state.movieInfo.Released}</li>
               <li>Writer: {this.state.movieInfo.Writer}</li>
               <li>Plot: {this.state.movieInfo.Plot}</li>
               <li>imdb ID: {this.state.movieInfo.imdbID}</li>

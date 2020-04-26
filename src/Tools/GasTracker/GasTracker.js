@@ -145,7 +145,7 @@ class GasTracker extends Component {
         </div>
         <form onSubmit={this.handleSubmit}>
           <label>Date: 
-            <input id='myDate' type='date' value={this.state.recieptObject.myDate} onChange={this.updateState}/>
+            <input id='myDate' type='date' defaultValue={new Date().toLocaleDateString('en-CA')} onChange={this.updateState}/>
           </label>
           <label>Total Sale: 
             <input id='Total_Sale' type='text' value={this.state.recieptObject.Total_Sale} onChange={this.updateState}/>

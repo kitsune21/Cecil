@@ -143,7 +143,7 @@ class MovieReview extends Component {
                 <p>Director: {entry.Director}</p>
                 <p>Genre: {entry.Genre}</p> 
                 <p>Rated: {entry.Rated}</p>
-                <p>Released: {entry.Released}</p>
+                <p>Released: {entry.Release}</p>
                 <p>Written By: {entry.Writer}</p>
                 <p>Plot: {entry.Plot}</p>
                 <img src={entry.Poster_URL} alt={`Poster of ${entry.Title}`}/>
