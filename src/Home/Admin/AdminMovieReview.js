@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'; 
 import axios from 'axios';
+import CecilRank from './CecilRank';
 
 class AdminMovieReview extends Component {
 
-  state = {}
+  state = {
+    movieSelected: false,
+  }
 
   pullData = (e) => {
     e.preventDefault();
     let movieTitle = e.target.elements.movieTitle.value;
     movieTitle = movieTitle.replace(/\s/g, '+');
-    console.log(movieTitle)
     axios({
       method: 'GET',
       url: 'http://localhost:3001/api/movies/getOMDB/',
@@ -20,7 +22,6 @@ class AdminMovieReview extends Component {
         url: `http://www.omdbapi.com/?apikey=${data.data.apiKey}&t=${movieTitle}`
       })
       .then(data => {
-        console.log(data.data)
         this.setState({movieInfo: data.data})
       })
       .catch(err => {
@@ -32,6 +33,10 @@ class AdminMovieReview extends Component {
     })
   }
 
+  selectMovieButton = () => {
+    this.setState({movieSelected: true});
+  }
+
   render() {
     return(
       <>
@@ -40,10 +45,11 @@ class AdminMovieReview extends Component {
           <button type='submit'>Search</button>
         </form>
         {
-          this.state.movieInfo ?
+          this.state.movieInfo && !this.state.movieSelected ?
           <div>
             <br />
             <h3>This Movie?</h3>
+            <button onClick={this.selectMovieButton}>Select</button>
             <ul>
               <li>Title: {this.state.movieInfo.Title}</li>
               <li>Director: {this.state.movieInfo.Director}</li>
@@ -56,6 +62,11 @@ class AdminMovieReview extends Component {
               <li><img src={this.state.movieInfo.Poster} alt={`The poster for ${this.state.movieInfo.Title}`}/></li>
             </ul>
           </div>
+          : null
+        }
+        {
+          this.state.movieSelected ?
+          <CecilRank movieInfo={this.state.movieInfo} />
           : null
         }
       </>
