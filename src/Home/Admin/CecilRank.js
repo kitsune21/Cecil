@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import MovieRanking from './MovieRanking';
 
 class CecilRank extends Component {
 
-  state = {};
+  state = {
+    addRanking: false
+  };
 
   componentDidMount() {
     axios({
@@ -35,12 +38,13 @@ class CecilRank extends Component {
   submitAddandUpdate = () => {
     if(this.props.movieInfo) {
       this.addNewReview();
+      this.setState({addRanking: true})
     }
     this.state.data.forEach(review => {
       if(review.ID) {
         this.putCecilRank(review.ID, review.Cecil_Rank);
       }
-    })
+    });
   }
 
   addNewReview = () => {
@@ -108,6 +112,10 @@ class CecilRank extends Component {
         }
         </ul>
         <button onClick={this.submitAddandUpdate}>Create New Review</button>
+        {
+          this.state.addRanking ? 
+          <MovieRanking /> : null
+        }
       </div>
     )
   }
