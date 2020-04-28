@@ -6,13 +6,16 @@ class CecilRank extends Component {
   state = {};
 
   componentDidMount() {
-    console.log(this.props.movieInfo)
     axios({
       method: "GET",
       url: "http://localhost:3001/api/movie_reviews/cecil",
     })
     .then( data => {
-      this.setState({data: [...data.data.reviews, this.props.movieInfo], newMovie: this.props.movieInfo, newMovieCecilRank: data.data.reviews.length + 1})
+      if(this.props.movieInfo) {
+        this.setState({data: [...data.data.reviews, this.props.movieInfo], newMovie: this.props.movieInfo, newMovieCecilRank: data.data.reviews.length + 1})
+      } else {
+        this.setState({data: [...data.data.reviews]})
+      }
     })
     .catch( err => { console.log(err)});
   }
@@ -29,8 +32,18 @@ class CecilRank extends Component {
     )
   }
 
+  submitAddandUpdate = () => {
+    if(this.props.movieInfo) {
+      this.addNewReview();
+    }
+    this.state.data.forEach(review => {
+      if(review.ID) {
+        this.putCecilRank(review.ID, review.Cecil_Rank);
+      }
+    })
+  }
+
   addNewReview = () => {
-    console.log(this.state.newMovie.Release)
     axios({
       method: 'POST',
       url: 'http://localhost:3001/api/movie_reviews/add',
@@ -50,7 +63,36 @@ class CecilRank extends Component {
   }
 
   setNewMovieCecilRank = e => {
-    this.setState({newMovieCecilRank: e.target.value})
+    if(this.props.movieInfo) {
+      this.setState({newMovieCecilRank: e.target.value})
+    } else {
+      let id = parseInt(e.target.id);
+      let value = e.target.value;
+      this.setState(state => {
+        const data = state.data.map(review => {
+          if(review.ID === id){
+            return {...review, Cecil_Rank: value}
+          } else {
+            return review
+          }
+        });
+        return { data };
+      });
+    }
+  }
+
+  putCecilRank = (id, cRank) => {
+    axios({
+      method: 'PUT',
+      url: 'http://localhost:3001/api/movie_reviews/update/' + id,
+      data: {
+        Cecil_Rank: cRank
+      }
+    })
+  }
+
+  updateCecilRank = () => {
+
   }
 
   render() {
@@ -60,20 +102,12 @@ class CecilRank extends Component {
         {
           this.state.data ? 
           this.state.data.map(review =>
-            <li key={review.ID ? review.ID : this.state.data.length}>{review.Title} | Cecil Rank: {review.Cecil_Rank ? review.Cecil_Rank : '???'}<select id={review.ID ? 'review' + review.ID : 'newMovieCecilRank'} onChange={this.setNewMovieCecilRank} defaultValue={review.Cecil_Rank ? review.Cecil_Rank : this.state.data.length}>
-            {
-              this.state.data ?
-              this.state.data.map(rank =>
-                <option key={rank.ID ? rank.ID : this.state.data.length}>{rank.Cecil_Rank ? rank.Cecil_Rank : this.state.data.length}</option>
-              )
-              : null
-            }
-            </select></li>
+            <li key={review.ID ? review.ID : this.state.data.length}>{review.Title} | Cecil Rank: {review.Cecil_Rank ? review.Cecil_Rank : '???'}<input id={review.ID ? review.ID : 'newMovieCecilRank'} type='number' onChange={this.setNewMovieCecilRank} defaultValue={review.Cecil_Rank ? review.Cecil_Rank : this.state.data.length} /></li>
           )
           : <p>Loading...</p>
         }
         </ul>
-        <button onClick={this.addNewReview}>Create New Review</button>
+        <button onClick={this.submitAddandUpdate}>Create New Review</button>
       </div>
     )
   }

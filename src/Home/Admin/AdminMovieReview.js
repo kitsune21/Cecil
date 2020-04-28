@@ -6,6 +6,7 @@ class AdminMovieReview extends Component {
 
   state = {
     movieSelected: false,
+    updateCecilRanks: false
   }
 
   pullData = (e) => {
@@ -37,9 +38,23 @@ class AdminMovieReview extends Component {
     this.setState({movieSelected: true});
   }
 
+  toggleUpdateShow = () => {
+    this.setState({updateCecilRanks: !this.state.updateCecilRanks})
+  }
+
   render() {
     return(
       <>
+        <div>
+          <button onClick={this.toggleUpdateShow}>Update Ranks</button>
+          {
+            this.state.updateCecilRanks ?
+            <>
+              <h3>Update Cecil Rank</h3>
+              <CecilRank/>  
+            </> : null
+          }
+        </div>
         <form onSubmit={this.pullData}>
           <label>Movie Name: <input id='movieTitle'/></label>
           <button type='submit'>Search</button>
