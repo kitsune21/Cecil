@@ -41,8 +41,18 @@ class CecilRank extends Component {
       this.setState({addRanking: true})
     }
     this.state.data.forEach(review => {
-      if(review.ID) {
+      if(review.ID && review.updatedCecil) {
         this.putCecilRank(review.ID, review.Cecil_Rank);
+        this.setState(state => {
+          const data = state.data.map(review2 => {
+            if(review2.ID === review.ID){
+              return {...review2, updatedCecil: false}
+            } else {
+              return review2
+            }
+          });
+          return { data };
+        });
       }
     });
   }
@@ -75,7 +85,7 @@ class CecilRank extends Component {
       this.setState(state => {
         const data = state.data.map(review => {
           if(review.ID === id){
-            return {...review, Cecil_Rank: value}
+            return {...review, Cecil_Rank: value, updatedCecil: true}
           } else {
             return review
           }
@@ -95,26 +105,26 @@ class CecilRank extends Component {
     })
   }
 
-  updateCecilRank = () => {
-
-  }
-
   render() {
     return(
       <div>
-        <ul>
         {
-          this.state.data ? 
-          this.state.data.map(review =>
-            <li key={review.ID ? review.ID : this.state.data.length}>{review.Title} | Cecil Rank: {review.Cecil_Rank ? review.Cecil_Rank : '???'}<input id={review.ID ? review.ID : 'newMovieCecilRank'} type='number' onChange={this.setNewMovieCecilRank} defaultValue={review.Cecil_Rank ? review.Cecil_Rank : this.state.data.length} /></li>
-          )
-          : <p>Loading...</p>
+          this.state.data && !this.state.addRanking ?
+          <>
+          <ul>
+          { 
+            this.state.data.map(review =>
+              <li key={review.ID ? review.ID : this.state.data.length + 5}>{review.Title} | Cecil Rank: {review.Cecil_Rank ? review.Cecil_Rank : '???'}<input id={review.ID ? review.ID : 'newMovieCecilRank'} type='number' onChange={this.setNewMovieCecilRank} defaultValue={review.Cecil_Rank ? review.Cecil_Rank : this.state.data.length} /></li>
+            )
+          }
+          </ul>
+          <button onClick={this.submitAddandUpdate}>{this.props.movieInfo ? 'Create Movie Review' : 'Update Cecil Rank'}</button>
+          </>
+          : null
         }
-        </ul>
-        <button onClick={this.submitAddandUpdate}>Create New Review</button>
         {
           this.state.addRanking ? 
-          <MovieRanking /> : null
+          <MovieRanking /> : null 
         }
       </div>
     )
