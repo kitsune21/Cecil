@@ -1,12 +1,14 @@
 import React, { Component } from 'react'; 
 import axios from 'axios';
 import CecilRank from './CecilRank';
+import MovieRanking from './MovieRanking';
 
 class AdminMovieReview extends Component {
 
   state = {
     movieSelected: false,
-    updateCecilRanks: false
+    updateCecilRanks: false,
+    toggleMovie: false,
   }
 
   pullData = (e) => {
@@ -42,6 +44,10 @@ class AdminMovieReview extends Component {
     this.setState({updateCecilRanks: !this.state.updateCecilRanks})
   }
 
+  toggleShowMovieRanking = () => {
+    this.setState({toggleMovie: !this.state.toggleMovie})
+  }
+
   render() {
     return(
       <>
@@ -52,6 +58,16 @@ class AdminMovieReview extends Component {
             <>
               <h3>Update Cecil Rank</h3>
               <CecilRank/>  
+            </> : null
+          }
+        </div>
+        <div>
+          <button onClick={this.toggleShowMovieRanking}>Update Ranking</button>
+          {
+            this.state.toggleMovie ?
+            <>
+              <h3>Add Ranking</h3>
+              <MovieRanking />
             </> : null
           }
         </div>

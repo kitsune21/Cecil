@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import MovieRanking from './MovieRanking';
 
 class CecilRank extends Component {
 
@@ -121,10 +120,6 @@ class CecilRank extends Component {
           <button onClick={this.submitAddandUpdate}>{this.props.movieInfo ? 'Create Movie Review' : 'Update Cecil Rank'}</button>
           </>
           : null
-        }
-        {
-          this.state.addRanking ? 
-          <MovieRanking /> : null 
         }
       </div>
     )

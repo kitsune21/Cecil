@@ -1,17 +1,37 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import MovieRankingUpdate from './MovieRankingUpdate';
 
 class MovieRanking extends Component {
 
-  state =  {}
+  state =  {
+    myReviewID: ''
+  }
 
   componentDidMount() {
+    this.pullMovieReviews();
+    this.pullRankingCategories();
+  }
+
+  pullMovieReviews = () => {
+    axios({
+      method: "GET",
+      url: "http://localhost:3001/api/movie_reviews/cecil"
+    })
+    .then( reviews => {
+      this.setState({movieReviews: [...reviews.data.reviews]});
+    })
+    .catch( err => {
+      console.log(err)
+    });
+  }
+
+  pullRankingCategories = () => {
     axios({
       method: "GET",
       url: "http://localhost:3001/api/ranking_category"
     })
     .then( categories => {
-      console.log(categories)
       this.setState({rankingCategories: [...categories.data.data]});
     })
     .catch( err => {
@@ -19,13 +39,20 @@ class MovieRanking extends Component {
     });
   }
 
+  setReviewID = e => {
+    this.setState({activeReviewID: e.target.id})
+  }
+
   render() {
     return(
       <>
         {
-          this.state.rankingCategories ? 
-          this.state.rankingCategories.map(category => 
-            <p key={category.ID}>{category.Name}</p>  
+          this.state.movieReviews ? 
+          this.state.movieReviews.map(review => 
+            <div key={review.ID}>
+              <button id={review.ID} onClick={this.setReviewID}>{review.Title}</button>
+              <MovieRankingUpdate myReviewID={review.ID} activeReviewID={this.state.activeReviewID} rankingCategories={this.state.rankingCategories}/>
+            </div>
           ) : <p>Loading...</p>
         }
       </>
