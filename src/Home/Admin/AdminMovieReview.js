@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import CecilRank from './CecilRank';
 import MovieRanking from './MovieRanking';
+import ReviewContent from './ReviewContent';
 
 class AdminMovieReview extends Component {
 
@@ -9,6 +10,7 @@ class AdminMovieReview extends Component {
     movieSelected: false,
     updateCecilRanks: false,
     toggleMovie: false,
+    toggleReviewContent: false,
   }
 
   pullData = (e) => {
@@ -48,6 +50,10 @@ class AdminMovieReview extends Component {
     this.setState({toggleMovie: !this.state.toggleMovie})
   }
 
+  toggleReviewContent = () => {
+    this.setState({toggleReviewContent: !this.state.toggleReviewContent})
+  }
+
   render() {
     return(
       <>
@@ -68,6 +74,16 @@ class AdminMovieReview extends Component {
             <>
               <h3>Add Ranking</h3>
               <MovieRanking />
+            </> : null
+          }
+        </div>
+        <div>
+          <button onClick={this.toggleReviewContent}>Update Review Content</button>
+          {
+            this.state.toggleReviewContent ?
+            <>
+              <h3>Update Review Content</h3>
+              <ReviewContent />
             </> : null
           }
         </div>
