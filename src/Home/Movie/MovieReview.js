@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import StarRatings from 'react-star-ratings';
 import axios from 'axios';
+import { Container, Row, Col, Popover, OverlayTrigger} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class MovieReview extends Component {
 
@@ -96,6 +98,24 @@ class MovieReview extends Component {
     this.setState({toggleLeast: !this.state.toggleLeast})
   }
 
+  displayOverlay = entry => {
+    return(
+      <Popover>
+        <Popover.Title>Movie Info:</Popover.Title>
+        <Popover.Content>
+          <div>
+            <p>Director: {entry.Director}</p>
+            <p>Genre: {entry.Genre}</p> 
+            <p>Rated: {entry.Rated}</p>
+            <p>Released: {entry.Release}</p>
+            <p>Written By: {entry.Writer}</p>
+            <p>Plot: {entry.Plot}</p>
+          </div>
+        </Popover.Content>
+      </Popover>
+    )
+  }
+
   render() {
     return(
       <div>
@@ -112,46 +132,49 @@ class MovieReview extends Component {
         <p>Ties are won by the "Cecil Rank"</p>
         <p>Toggle Least <input onChange={this.handleToggleLeastChange} checked={this.state.toggleLeast} type='checkbox'></input></p> 
         <p>Spoiler Free? <input checked={this.state.spoilerFree} onChange={this.handleSpoilerChange} type='checkbox'></input></p>
+        <div style={{width: "100%"}}>
         {
           this.state.data ? 
           this.filterReviews().map(entry => 
-            <div key={entry.ID}>
-              <h4>{entry.Title}:</h4>
-              <h5>The Cecil Rank: #{entry.Cecil_Rank}</h5>
-              {
-                entry.rankings.map((rank, i) =>
-                rank.Review_ID === entry.ID ? 
-                <div key={i}>
-                  <h5>{rank.Category_Name}: ({rank.Value}/8)</h5>
-                  <StarRatings 
-                    rating={rank.Value}
-                    starRatedColor='orange'
-                    numberOfStars={8}
-                    name={rank.Category_Name}
-                  />
-                </div> : null
-                )
-              }
-              <h5>Review:</h5>              
-              {
-                entry.content.map(paragraph => 
-                  paragraph.Spoiler ? <p style={this.returnSpoilerStyle()} key={paragraph.ID}>{paragraph.Text}</p> : <p key={paragraph.ID}>{paragraph.Text}</p>
-                )
-              }
-              <h5>Movie Info:</h5>
-              <div>
-                <p>Director: {entry.Director}</p>
-                <p>Genre: {entry.Genre}</p> 
-                <p>Rated: {entry.Rated}</p>
-                <p>Released: {entry.Release}</p>
-                <p>Written By: {entry.Writer}</p>
-                <p>Plot: {entry.Plot}</p>
-                <img src={entry.Poster_URL} alt={`Poster of ${entry.Title}`}/>
-              </div>
-            </div>
+            <Container fluid key={entry.ID}>
+              <Row>
+                <Col>
+                  <h4>{entry.Title}:</h4>
+                  <h5>The Cecil Rank: #{entry.Cecil_Rank}</h5>
+                  <OverlayTrigger trigger="click" placement="right" overlay={this.displayOverlay(entry)}>
+                    <img src={entry.Poster_URL} alt={`Poster of ${entry.Title}`}/>
+                  </OverlayTrigger>
+                </Col>
+                <Col>
+                  {
+                    entry.rankings.map((rank, i) =>
+                    rank.Review_ID === entry.ID ? 
+                    <div key={i}>
+                      <h5>{rank.Category_Name}: ({rank.Value}/8)</h5>
+                      <StarRatings 
+                        rating={rank.Value}
+                        starRatedColor='orange'
+                        numberOfStars={8}
+                        name={rank.Category_Name}
+                      />
+                    </div> : null
+                    )
+                  }
+                </Col>
+                <Col>
+                  <h5>Review:</h5>              
+                  {
+                    entry.content.map(paragraph => 
+                      paragraph.Spoiler ? <p style={this.returnSpoilerStyle()} key={paragraph.ID}>{paragraph.Text}</p> : <p key={paragraph.ID}>{paragraph.Text}</p>
+                    )
+                  }
+                </Col>
+              </Row>
+            </Container>
           ) :
           <p>Loading...</p>
         }
+        </div>
       </div>
     )
   }
