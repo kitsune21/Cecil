@@ -121,7 +121,7 @@ class MovieReview extends Component {
       <div>
         <h2>Movie Reviews by Cecil:</h2>
         <p>Filter by: </p>
-        <select onChange={this.handleFilterChange}>
+        <select onChange={this.handleFilterChange} style={{width: "20%"}}>
           <option key={8}>Cecil Rank</option>
           {
             this.state.rankingCategories.map(category => 
@@ -130,13 +130,13 @@ class MovieReview extends Component {
           }
         </select>
         <p>Ties are won by the "Cecil Rank"</p>
-        <p>Toggle Least <input onChange={this.handleToggleLeastChange} checked={this.state.toggleLeast} type='checkbox'></input></p> 
-        <p>Spoiler Free? <input checked={this.state.spoilerFree} onChange={this.handleSpoilerChange} type='checkbox'></input></p>
+        <p>Reverse the order <input onChange={this.handleToggleLeastChange} checked={this.state.toggleLeast} type='checkbox'></input></p> 
+        <p>{this.state.spoilerFree ? "Don't show spoilers" : "Show spoilers"}  <input checked={this.state.spoilerFree} onChange={this.handleSpoilerChange} type='checkbox'></input></p>
         <div style={{width: "100%"}}>
         {
           this.state.data ? 
           this.filterReviews().map(entry => 
-            <Container fluid key={entry.ID}>
+            <Container fluid key={entry.ID} style={{paddingBottom: "50px"}}>
               <Row>
                 <Col>
                   <h4>{entry.Title}:</h4>
