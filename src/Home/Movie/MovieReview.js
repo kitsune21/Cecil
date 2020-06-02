@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import StarRatings from 'react-star-ratings';
 import axios from 'axios';
-import { Container, Row, Col, Popover, OverlayTrigger} from 'react-bootstrap';
+import { Container, Row, Col, Popover, OverlayTrigger, Accordion, Card, Tooltip} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class MovieReview extends Component {
@@ -98,6 +98,11 @@ class MovieReview extends Component {
     this.setState({toggleLeast: !this.state.toggleLeast})
   }
 
+  formatDate = date => {
+    let newDate = new Date(date);
+    return `${newDate.getMonth()}/${newDate.getDate()}/${newDate.getFullYear()}`;
+  }
+
   displayOverlay = entry => {
     return(
       <Popover>
@@ -107,7 +112,7 @@ class MovieReview extends Component {
             <p>Director: {entry.Director}</p>
             <p>Genre: {entry.Genre}</p> 
             <p>Rated: {entry.Rated}</p>
-            <p>Released: {entry.Release}</p>
+            <p>Released: {this.formatDate(entry.Release)}</p>
             <p>Written By: {entry.Writer}</p>
             <p>Plot: {entry.Plot}</p>
           </div>
@@ -120,18 +125,35 @@ class MovieReview extends Component {
     return(
       <div>
         <h2>Movie Reviews by Cecil:</h2>
-        <p>Filter by: </p>
-        <select onChange={this.handleFilterChange} style={{width: "20%"}}>
-          <option key={8}>Cecil Rank</option>
-          {
-            this.state.rankingCategories.map(category => 
-              <option key={category.ID}>{category.Name}</option>
-            )
-          }
-        </select>
-        <p>Ties are won by the "Cecil Rank"</p>
-        <p>Reverse the order <input onChange={this.handleToggleLeastChange} checked={this.state.toggleLeast} type='checkbox'></input></p> 
-        <p>{this.state.spoilerFree ? "Don't show spoilers" : "Show spoilers"}  <input checked={this.state.spoilerFree} onChange={this.handleSpoilerChange} type='checkbox'></input></p>
+        <Accordion defaultActiveKey="0" style={{width: "20%"}}>
+          <Card>
+            <Accordion.Toggle eventKey="0">Filters</Accordion.Toggle>
+            <Accordion.Collapse eventKey="0">
+              <Card.Body>
+                <OverlayTrigger
+                  key="right"
+                  placement="right"
+                  overlay={
+                    <Tooltip id={`tooltip`}>
+                      Ties are won by their "Cecil Rank"
+                    </Tooltip>
+                  }
+                >
+                <select onChange={this.handleFilterChange}>
+                <option key={8}>Cecil Rank</option>
+                {
+                  this.state.rankingCategories.map(category => 
+                    <option key={category.ID}>{category.Name}</option>
+                  )
+                }
+                </select>
+                </OverlayTrigger>
+                <p>Reverse the order <input onChange={this.handleToggleLeastChange} checked={this.state.toggleLeast} type='checkbox'></input></p> 
+                <p>{this.state.spoilerFree ? "Don't show spoilers" : "Show spoilers"}  <input checked={this.state.spoilerFree} onChange={this.handleSpoilerChange} type='checkbox'></input></p>
+              </Card.Body>
+            </Accordion.Collapse>
+          </Card>
+        </Accordion>
         <div style={{width: "100%"}}>
         {
           this.state.data ? 
@@ -145,7 +167,9 @@ class MovieReview extends Component {
                     <img src={entry.Poster_URL} alt={`Poster of ${entry.Title}`}/>
                   </OverlayTrigger>
                 </Col>
-                <Col>
+                {
+                  window.outerWidth > 700 ?
+                  <Col>
                   {
                     entry.rankings.map((rank, i) =>
                     rank.Review_ID === entry.ID ? 
@@ -160,7 +184,8 @@ class MovieReview extends Component {
                     </div> : null
                     )
                   }
-                </Col>
+                  </Col> : null
+                }
                 <Col>
                   <h5>Review:</h5>              
                   {

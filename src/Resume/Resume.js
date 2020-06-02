@@ -17,7 +17,7 @@ class Resume extends Component {
   render() {
     return(
       <div>
-        <a href='http://localhost:3001/ResumeFile/Resume.pdf' target='__blank' download>Download</a>
+        <a href='http://localhost:3001/ResumeFile/Resume.pdf' target='__blank' download>Download PDF</a>
         {/* <About /> */}
         <Websites />
         <Games returnFormattedDate={this.returnFormattedDate}/>

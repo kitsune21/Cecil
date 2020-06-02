@@ -11,7 +11,6 @@ class HomeContent extends Component {
           <p>I love JavaScript!</p>
           <p>I am a big fan of React and Node.</p>
           <p>Check out my random thoughts about movies.</p>
-          <p>Or my weird bucketlist!</p>
           <p>And if you are looking to hire people, check out my Resume!</p>
         </div>
       </div>

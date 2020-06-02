@@ -14,6 +14,10 @@
   margin-right: 20px;
 }
 
+#menuTitle a {
+  color: black;
+}
+
 #menuItem a {
   color: black;
 }

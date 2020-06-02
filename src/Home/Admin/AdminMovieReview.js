@@ -3,6 +3,7 @@ import axios from 'axios';
 import CecilRank from './CecilRank';
 import MovieRanking from './MovieRanking';
 import ReviewContent from './ReviewContent';
+import RankingCategories from './RankingCategories';
 
 class AdminMovieReview extends Component {
 
@@ -11,6 +12,7 @@ class AdminMovieReview extends Component {
     updateCecilRanks: false,
     toggleMovie: false,
     toggleReviewContent: false,
+    toggleRankingCategories: false,
   }
 
   pullData = (e) => {
@@ -54,9 +56,22 @@ class AdminMovieReview extends Component {
     this.setState({toggleReviewContent: !this.state.toggleReviewContent})
   }
 
+  toggleRankingCategoriesView = () => {
+    this.setState({toggleRankingCategories: !this.state.toggleRankingCategories})
+  }
+
   render() {
     return(
       <>
+        <div>
+          <button onClick={this.toggleRankingCategoriesView}>Edit Ranking Categories</button>
+          {
+            this.state.toggleRankingCategories ?
+            <>
+              <RankingCategories/>
+            </> : null
+          }
+        </div>
         <div>
           <button onClick={this.toggleUpdateShow}>Update Ranks</button>
           {
