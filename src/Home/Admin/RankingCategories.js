@@ -3,7 +3,9 @@ import axios from 'axios';
 
 class RankingCategories extends Component {
 
-  state={}
+  state={
+    editID: 1
+  }
 
   componentDidMount() {
     this.pullRankingCategories();
@@ -22,12 +24,13 @@ class RankingCategories extends Component {
     });
   }
 
-  updateRankingCategories = (category) => {
+  updateRankingCategories = (e) => {
+    e.preventDefault();
     axios({
       method: "PUT",
-      url: `http://localhost:3001/api/ranking_category/update/${category.ID}`,
-      body: {
-        Name: 
+      url: `http://localhost:3001/api/ranking_category/update/${this.state.editID}`,
+      data: {
+        Name: e.target.elements.categoryID.value
       }
     })
     .then(() => {
@@ -38,13 +41,22 @@ class RankingCategories extends Component {
     })
   }
 
+  displayEditInput = category => {
+    return (
+      <form onSubmit={this.updateRankingCategories}>
+        <label>Name: <input id='categoryID' defaultValue={category.Name}/></label>
+        <button type='submit'>Confirm</button>
+      </form>
+    )
+  }
+
   render() {
     return(
         <ul> 
           {
             this.state.rankingCategories ?
             this.state.rankingCategories.map(category =>
-              <li key={category.ID}>{category.Name}</li>
+            <li key={category.ID}>{this.state.editID !== category.ID ? category.Name : this.displayEditInput(category)}</li>
             ) : null
           }
         </ul>
