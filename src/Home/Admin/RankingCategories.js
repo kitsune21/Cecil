@@ -4,7 +4,7 @@ import axios from 'axios';
 class RankingCategories extends Component {
 
   state={
-    editID: 1
+    editID: 0
   }
 
   componentDidMount() {
@@ -41,13 +41,46 @@ class RankingCategories extends Component {
     })
   }
 
+  addRankingCategory = e => {
+    e.preventDefault();
+    e.preventDefault();
+    axios({
+      method: "POST",
+      url: `http://localhost:3001/api/ranking_category/add/`,
+      data: {
+        Name: e.target.elements.categoryID.value
+      }
+    })
+    .then(() => {
+      console.log('success');
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
   displayEditInput = category => {
-    return (
-      <form onSubmit={this.updateRankingCategories}>
-        <label>Name: <input id='categoryID' defaultValue={category.Name}/></label>
-        <button type='submit'>Confirm</button>
-      </form>
-    )
+    if(category.ID === this.state.editID){
+      return (
+        <form onSubmit={this.updateRankingCategories}>
+          <label>Name: <input id='categoryID' defaultValue={category.Name}/></label>
+          <button type='submit'>Confirm</button>
+        </form>
+      )
+    } else {
+      return (
+        category.Name
+      )
+    }
+  }
+
+  toggleEdit = e => {
+    const id = parseInt(e.target.id);
+    if(id === this.state.editID){
+      this.setState({editID: 0});
+    } else {
+      this.setState({editID: id});
+    }
   }
 
   render() {
@@ -56,9 +89,10 @@ class RankingCategories extends Component {
           {
             this.state.rankingCategories ?
             this.state.rankingCategories.map(category =>
-            <li key={category.ID}>{this.state.editID !== category.ID ? category.Name : this.displayEditInput(category)}</li>
+            <li key={category.ID}>{this.displayEditInput(category)}  <button id={category.ID} onClick={this.toggleEdit}>{category.ID === this.state.editID ? 'Close' : 'Edit'}</button></li>
             ) : null
           }
+          <li>Add New Category: <form onSubmit={this.addRankingCategory}><input id='categoryID' />  <button type='submit'>Confirm</button></form></li>
         </ul>
     )
   }
