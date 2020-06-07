@@ -70,15 +70,17 @@ class MovieRankingUpdate extends Component {
 
   addRankings = () => {
     this.state.newRankings.forEach(category => {
-      axios({
-        method: 'POST',
-        url: `http://localhost:3001/api/rankings/add`,
-        data: {
-          Review_ID: this.props.myReviewID,
-          Category_ID: category.ID,
-          Value: category.Value
-        }
-      })
+      if(parseInt(category.Value) > 0){
+        axios({
+          method: 'POST',
+          url: `http://localhost:3001/api/rankings/add`,
+          data: {
+            Review_ID: this.props.myReviewID,
+            Category_ID: category.ID,
+            Value: category.Value
+          }
+        })
+      }
     })
   }
 
