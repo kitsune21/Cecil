@@ -12,7 +12,7 @@ class Work extends Component {
   componentDidMount() {
     axios({
       method: 'GET',
-      url: 'http://localhost:3001/api/work'
+      url: 'http://ec2-52-53-158-205.us-west-1.compute.amazonaws.com:3001/api/work'
     })
     .then(data => {
       this.setState({work: data.data.work})
@@ -55,7 +55,7 @@ class Work extends Component {
           {
             this.state.work.map( entry =>
               !entry.Job_ID ?
-              <WorkEntry key={entry.ID} entry={entry} otherEntries={this.renderOtherJobs(entry.ID)}/>  :
+              <WorkEntry key={entry.ID} entry={entry} />  :
               null
             )
           }

@@ -10,7 +10,7 @@ const Websites = () => {
   useEffect(() => {
     axios({
       method: 'GET',
-      url: 'http://localhost:3001/api/websites'
+      url: 'http://ec2-52-53-158-205.us-west-1.compute.amazonaws.com:3001/api/websites'
     })
     .then(data => {
       setMyWebsites(data.data.websites);
@@ -40,7 +40,7 @@ const Websites = () => {
             <div key={entry.ID} style={{ height: 200, width: '100%', background: '#EEE', padding: '5px' }}>
               <p><a href={entry.Href} target='_blank' rel='noopener noreferrer'>{entry.Title}</a></p>
               <p>{entry.Description}</p>
-              <p>Tech: {entry.Tech}</p>
+              <p><b>Tech: {entry.Tech}</b></p>
             </div>
           )
         }

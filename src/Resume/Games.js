@@ -12,7 +12,7 @@ class Games extends Component {
   componentDidMount() {
     axios({
       method: 'GET',
-      url: "http://localhost:3001/api/games",
+      url: "http://ec2-52-53-158-205.us-west-1.compute.amazonaws.com:3001/api/games",
     })
     .then(data => {
       this.setState({myGames: data.data.data});
@@ -44,7 +44,7 @@ class Games extends Component {
               <ul key={entry.ID} style={{ height: 200, width: '100%', background: '#EEE', padding: '5px', listStyle: 'none'}}>
                 <li><a href={entry.Href} rel='noopener noreferrer' target='_blank'>{entry.Title}</a></li>
                 <li>{entry.Description}</li>
-                <li>Released: {this.props.returnFormattedDate(entry.Released)}</li>
+                <li><b>Released: {this.props.returnFormattedDate(entry.Released)}</b></li>
               </ul> )
           }
           </ItemsCarousel>

@@ -8,7 +8,7 @@ class Education extends Component {
   componentDidMount() {
     axios({
       method: 'GET',
-      url: 'http://localhost:3001/api/education'
+      url: 'http://ec2-52-53-158-205.us-west-1.compute.amazonaws.com:3001/api/education'
     })
     .then(data => {
       this.setState({education: data.data.data})
