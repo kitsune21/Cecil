@@ -125,7 +125,7 @@ class MovieReview extends Component {
     return(
       <div>
         <h2>Movie Reviews by Cecil:</h2>
-        <Accordion defaultActiveKey="0" style={{width: "20%"}}>
+        <Accordion defaultActiveKey="1" style={{width: "20%"}}>
           <Card>
             <Accordion.Toggle eventKey="0">Filters</Accordion.Toggle>
             <Accordion.Collapse eventKey="0">
@@ -150,7 +150,9 @@ class MovieReview extends Component {
                 </OverlayTrigger>
                 <p>Reverse the order <input onChange={this.handleToggleLeastChange} checked={this.state.toggleLeast} type='checkbox'></input></p> 
                 <p>{this.state.spoilerFree ? "Don't show spoilers" : "Show spoilers"}  <input checked={this.state.spoilerFree} onChange={this.handleSpoilerChange} type='checkbox'></input></p>
+                <p>Disclaimer! Cecil Rank is just my opinion on how enjoyable a movie is. It is very not scientific. It doesn't correlate with the ranking on the various categories.</p>
               </Card.Body>
+              
             </Accordion.Collapse>
           </Card>
         </Accordion>
