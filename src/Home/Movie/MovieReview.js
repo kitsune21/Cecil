@@ -21,7 +21,7 @@ class MovieReview extends Component {
   getMovieReviews = () => {
     axios({
       method: "GET",
-      url: "http://ec2-52-53-158-205.us-west-1.compute.amazonaws.com:3001/api/movie_reviews",
+      url: "https://ec2-52-53-158-205.us-west-1.compute.amazonaws.com:3001/api/movie_reviews",
     })
     .then( data => {
       this.setState({data: data.data.reviews})
@@ -32,7 +32,7 @@ class MovieReview extends Component {
   getRankingCategories = () => {
     axios({
       method: "GET",
-      url: "http://ec2-52-53-158-205.us-west-1.compute.amazonaws.com:3001/api/ranking_category"
+      url: "https://ec2-52-53-158-205.us-west-1.compute.amazonaws.com:3001/api/ranking_category"
     })
     .then( data => {
       let rankingCategories = data.data.data.map(category => {

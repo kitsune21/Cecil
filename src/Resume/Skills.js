@@ -11,7 +11,7 @@ class Skills extends Component {
   componentDidMount() {
     axios({
       method: 'GET',
-      url: 'http://ec2-52-53-158-205.us-west-1.compute.amazonaws.com:3001/api/skills'
+      url: 'https://ec2-52-53-158-205.us-west-1.compute.amazonaws.com:3001/api/skills'
     })
     .then(data => {
       this.setState({skills: data.data.skills})
