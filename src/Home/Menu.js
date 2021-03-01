@@ -14,8 +14,8 @@ class MenuBar extends Component {
           <li id='menuItem'><Link to='/resume'>Resume</Link></li>
           {/* <li id='menuItem'><a href='/gas_tracker'>Gas Tracker</a></li> */}
           {/* <li id='menuItem'><a href='/blog'>Blog</a></li> */}
-          <li id='menuItem'><Link to='/minecraft'>Minecraft</Link></li>
-          <li id='menuItem'><a href='http://toolring.cecil-thomas.com' rel='external' target='__blank'>ToolRing</a></li>
+          <li id='menuItem'><Link to='/minecraft'>Minecraft Server</Link></li>
+          <li id='menuItem'><a href='https://toolring.cecil-thomas.com' rel='external' target='__blank'>ToolRing</a></li>
         </ul>
       </div>
     )
