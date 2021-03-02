@@ -1,5 +1,12 @@
 import React from 'react';
-import {Container, Card, ListGroup } from 'react-bootstrap';
+import {Container, Card, ListGroup, Carousel } from 'react-bootstrap';
+import cactus from './pics/cactus.png';
+import skel1 from './pics/skeleton1.png';
+import skel2 from './pics/skeleton2.png';
+import stad1 from './pics/stadium1.png';
+import stad2 from './pics/stadium2.png';
+import sushi1 from './pics/sushi1.png';
+import sushi2 from './pics/sushi2.png';
 
 
 function Minecraft () {
@@ -24,6 +31,44 @@ function Minecraft () {
             </Card>
             <Card>
                 <Card.Title>Some of our Projects:</Card.Title>
+                <Carousel
+                    interval={4000}
+                >
+                    <Carousel.Item>
+                        <img className="d-block w-100" src={cactus} alt='Automated Cactus/Bone Meal farm'/>
+                        <Carousel.Caption><h3 style={{marginBottom: '800px'}}>Automated Cactus and/or Bone Meal Farm</h3></Carousel.Caption>
+                    </Carousel.Item>
+
+                    <Carousel.Item>
+                        <img className="d-block w-100" src={skel1} alt='Skeleton Farm'/>
+                        <Carousel.Caption><h3 style={{marginBottom: '800px'}}>Skeleton farm. Useful for bone meal and arrows</h3></Carousel.Caption>
+                    </Carousel.Item>
+
+                    <Carousel.Item>
+                        <img className="d-block w-100" src={skel2} alt='Skeleton farm'/>
+                        <Carousel.Caption><h3 style={{marginBottom: '800px'}}>Skeleton farm. Useful for bone meal and arrows</h3></Carousel.Caption>
+                    </Carousel.Item>
+
+                    <Carousel.Item>
+                        <img className="d-block w-100" src={sushi1} alt='Conveyor Belt Sushi Restaurant'/>
+                        <Carousel.Caption><h3 style={{marginBottom: '800px'}}>Hamazushi, Conveyor Belt Sushi Restaurant</h3></Carousel.Caption>
+                    </Carousel.Item>
+
+                    <Carousel.Item>
+                        <img className="d-block w-100" src={sushi2} alt='Hamazushi'/>
+                        <Carousel.Caption><h3 style={{marginBottom: '800px'}}>Hamazushi, Conveyor Belt Sushi Restaurant</h3></Carousel.Caption>
+                    </Carousel.Item>
+
+                    <Carousel.Item>
+                        <img className="d-block w-100" src={stad1} alt='Rugby Stadium'/>
+                        <Carousel.Caption><h3 style={{marginBottom: '800px'}}>Nimbus Land Stadium. Home of the Hamazushi Ocelots</h3></Carousel.Caption>
+                    </Carousel.Item>
+
+                    <Carousel.Item>
+                        <img className="d-block w-100" src={stad2} alt='Rugby Pitch'/>
+                        <Carousel.Caption><h3 style={{marginBottom: '800px'}}>Nimbus Land Stadium. Home of the Hamazushi Ocelots</h3></Carousel.Caption>
+                    </Carousel.Item>
+                </Carousel>
             </Card>
             <Card>
                 <Card.Title>Server Rules</Card.Title>

@@ -121,6 +121,18 @@ class MovieReview extends Component {
     )
   }
 
+  displayRankingOverlay = rank => {
+    return (
+      <Popover>
+        <Popover.Content>
+          {
+            JSON.stringify(rank)
+          }
+        </Popover.Content>
+      </Popover>
+    )
+  }
+
   render() {
     return(
       <div>
@@ -176,7 +188,9 @@ class MovieReview extends Component {
                     entry.rankings.map((rank, i) =>
                     rank.Review_ID === entry.ID ? 
                     <div key={i}>
+                      <OverlayTrigger trigger="click" placement="top" overlay={this.displayRankingOverlay(rank)}>
                       <h5>{rank.Category_Name}: ({rank.Value}/8)</h5>
+                      </OverlayTrigger>
                       <StarRatings 
                         rating={rank.Value}
                         starRatedColor='orange'
