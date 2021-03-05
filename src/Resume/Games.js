@@ -12,7 +12,7 @@ class Games extends Component {
   componentDidMount() {
     axios({
       method: 'GET',
-      url: "https://ec2-52-53-158-205.us-west-1.compute.amazonaws.com:3001/api/games",
+      url: "https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/games",
     })
     .then(data => {
       this.setState({myGames: data.data.data});

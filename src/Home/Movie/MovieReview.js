@@ -10,7 +10,8 @@ class MovieReview extends Component {
     filterByRanking: 'Cecil Rank',
     spoilerFree: true,
     toggleLeast: false,
-    rankingCategories: []
+    rankingCategories: [],
+    reviewSearch: '',
   }
 
   componentDidMount() {
@@ -21,7 +22,7 @@ class MovieReview extends Component {
   getMovieReviews = () => {
     axios({
       method: "GET",
-      url: "https://ec2-52-53-158-205.us-west-1.compute.amazonaws.com:3001/api/movie_reviews",
+      url: "https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/movie_reviews",
     })
     .then( data => {
       this.setState({data: data.data.reviews})
@@ -32,7 +33,7 @@ class MovieReview extends Component {
   getRankingCategories = () => {
     axios({
       method: "GET",
-      url: "https://ec2-52-53-158-205.us-west-1.compute.amazonaws.com:3001/api/ranking_category"
+      url: "https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/ranking_category"
     })
     .then( data => {
       let rankingCategories = data.data.data.map(category => {
@@ -45,10 +46,31 @@ class MovieReview extends Component {
     });
   }
 
+  fuzzy_match = (str,pattern) => {
+    pattern = pattern.split("").reduce(function(a,b){ return a+".*"+b; });
+    return (new RegExp(pattern)).test(str);
+};
+
   filterReviews = () => {
     if(this.state.filterByRanking === 'Cecil Rank'){
       if(this.state.toggleLeast){
         return this.state.data.sort((a, b) => (a.Cecil_Rank > b.Cecil_Rank) ? 1 : -1).reverse()
+      } else {
+        return this.state.data.sort((a, b) => (a.Cecil_Rank > b.Cecil_Rank) ? 1 : -1);
+      }
+    } else if(this.state.filterByRanking === 'Movie Info') {
+      let returnMovieList = [];
+      if(this.state.reviewSearch.length > 1){
+        this.state.data.forEach(review => {
+          if(this.fuzzy_match(review.Director, this.state.reviewSearch)) {
+            returnMovieList.push(review)
+          } else if(this.fuzzy_match(review.Genre, this.state.reviewSearch)) {
+            returnMovieList.push(review)
+          } else if(this.fuzzy_match(review.Writer, this.state.reviewSearch)) {
+            returnMovieList.push(review)
+          } 
+        })
+        return returnMovieList;
       } else {
         return this.state.data.sort((a, b) => (a.Cecil_Rank > b.Cecil_Rank) ? 1 : -1);
       }
@@ -98,6 +120,10 @@ class MovieReview extends Component {
     this.setState({toggleLeast: !this.state.toggleLeast})
   }
 
+  handleReviewSearchChange = (e) => {
+    this.setState({reviewSearch: e.target.value});
+  }
+
   formatDate = date => {
     let newDate = new Date(date);
     return `${newDate.getMonth()}/${newDate.getDate()}/${newDate.getFullYear()}`;
@@ -125,9 +151,7 @@ class MovieReview extends Component {
     return (
       <Popover>
         <Popover.Content>
-          {
-            JSON.stringify(rank)
-          }
+          <p>{rank.Description}</p>
         </Popover.Content>
       </Popover>
     )
@@ -153,6 +177,7 @@ class MovieReview extends Component {
                 >
                 <select onChange={this.handleFilterChange}>
                 <option key={8}>Cecil Rank</option>
+                <option key={9}>Movie Info</option>
                 {
                   this.state.rankingCategories.map(category => 
                     <option key={category.ID}>{category.Name}</option>
@@ -160,7 +185,17 @@ class MovieReview extends Component {
                 }
                 </select>
                 </OverlayTrigger>
-                <p>Reverse the order <input onChange={this.handleToggleLeastChange} checked={this.state.toggleLeast} type='checkbox'></input></p> 
+                {
+                  this.state.filterByRanking === 'Movie Info' ? 
+                  <OverlayTrigger key="right2" placement='right' overlay={
+                    <Tooltip id={'tooltip'}>
+                      Search for director, writer, or genre
+                    </Tooltip>
+                  }>
+                    <label>Search: <input onChange={this.handleReviewSearchChange} value={this.state.reviewSearch}/></label>
+                  </OverlayTrigger>
+                  : <p>Reverse the order <input onChange={this.handleToggleLeastChange} checked={this.state.toggleLeast} type='checkbox'></input></p> 
+                }
                 <p>{this.state.spoilerFree ? "Don't show spoilers" : "Show spoilers"}  <input checked={this.state.spoilerFree} onChange={this.handleSpoilerChange} type='checkbox'></input></p>
                 <p>Disclaimer! Cecil Rank is just my opinion on how enjoyable a movie is. It is very not scientific. It doesn't correlate with the ranking on the various categories.</p>
               </Card.Body>

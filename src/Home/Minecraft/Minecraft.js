@@ -1,12 +1,12 @@
 import React from 'react';
 import {Container, Card, ListGroup, Carousel } from 'react-bootstrap';
-import cactus from './pics/cactus.png';
-import skel1 from './pics/skeleton1.png';
-import skel2 from './pics/skeleton2.png';
-import stad1 from './pics/stadium1.png';
-import stad2 from './pics/stadium2.png';
-import sushi1 from './pics/sushi1.png';
-import sushi2 from './pics/sushi2.png';
+import cactus from '../Images/cactus.png'
+import skel1 from '../Images/skeleton1.png';
+import skel2 from '../Images/skeleton2.png';
+import stad1 from '../Images/stadium1.png';
+import stad2 from '../Images/stadium2.png';
+import sushi1 from '../Images/sushi1.png';
+import sushi2 from '../Images/sushi2.png';
 
 
 function Minecraft () {
@@ -16,7 +16,7 @@ function Minecraft () {
             <Card>
                 <Card.Title>Nimbus Land</Card.Title>
                 <Card.Body>
-                    This is my Minecraft server that is running on an AWS Lightsail server. (Hence the name "Nimbus Land)<br/>
+                    This is my Minecraft server that is running on an AWS Lightsail server. (Hence the name "Nimbus Land")<br/>
                     We currently run on Java v1.16.5.<br/>
                     We don't have any mods installed on the server at this point.<br/>
                     We enjoy automation for as many resources as we can.<br/>
