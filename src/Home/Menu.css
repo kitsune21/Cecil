@@ -8,6 +8,14 @@
   color: black;
 }
 
+#menuItemRight {
+  float: right;
+  display: inline;
+  margin-right: 1%;
+  color: black;
+
+}
+
 #menuTitle {
   font-size: 27px;
   display: inline;

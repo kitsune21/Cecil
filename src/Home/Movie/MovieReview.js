@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import StarRatings from 'react-star-ratings';
 import axios from 'axios';
-import { Container, Row, Col, Popover, OverlayTrigger, Accordion, Card, Tooltip} from 'react-bootstrap';
+import { Container, Row, Col, Popover, OverlayTrigger, Accordion, Card, Tooltip, Navbar } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class MovieReview extends Component {
+
+  constructor(props) {
+    super(props);
+    this.scrollPos = React.createRef();
+  }
+
 
   state={
     filterByRanking: 'Cecil Rank',
@@ -49,7 +55,7 @@ class MovieReview extends Component {
   fuzzy_match = (str,pattern) => {
     pattern = pattern.split("").reduce(function(a,b){ return a+".*"+b; });
     return (new RegExp(pattern)).test(str);
-};
+  };
 
   filterReviews = () => {
     if(this.state.filterByRanking === 'Cecil Rank'){
@@ -58,7 +64,7 @@ class MovieReview extends Component {
       } else {
         return this.state.data.sort((a, b) => (a.Cecil_Rank > b.Cecil_Rank) ? 1 : -1);
       }
-    } else if(this.state.filterByRanking === 'Movie Info') {
+    } else if(this.state.filterByRanking === 'Search by Movie Info') {
       let returnMovieList = [];
       if(this.state.reviewSearch.length > 1){
         this.state.data.forEach(review => {
@@ -129,6 +135,10 @@ class MovieReview extends Component {
     return `${newDate.getMonth()}/${newDate.getDate()}/${newDate.getFullYear()}`;
   }
 
+  calculateScrollPos = review => {
+    return (this.scrollPos.current.offsetHeight * review) - 400
+  }
+
   displayOverlay = entry => {
     return(
       <Popover>
@@ -157,6 +167,20 @@ class MovieReview extends Component {
     )
   }
 
+  displayScrollButtons = () => {
+    let scrollList = [];
+    for(let i = 0; i < this.state.data?.length; i++){
+      if(i % 5 === 0){
+        if(i !== 0){
+          scrollList.push(i);
+        }
+      } else if( i === 1) {
+        scrollList.push(i)
+      }
+    }
+    return scrollList;
+  }
+
   render() {
     return(
       <div>
@@ -176,17 +200,17 @@ class MovieReview extends Component {
                   }
                 >
                 <select onChange={this.handleFilterChange}>
-                <option key={8}>Cecil Rank</option>
-                <option key={9}>Movie Info</option>
-                {
-                  this.state.rankingCategories.map(category => 
-                    <option key={category.ID}>{category.Name}</option>
-                  )
-                }
+                  <option key={8}>Cecil Rank</option>
+                  <option key={9}>Search by Movie Info</option>
+                  {
+                    this.state.rankingCategories.map(category => 
+                      <option key={category.ID}>{category.Name}</option>
+                    )
+                  }
                 </select>
                 </OverlayTrigger>
                 {
-                  this.state.filterByRanking === 'Movie Info' ? 
+                  this.state.filterByRanking === 'Search by Movie Info' ? 
                   <OverlayTrigger key="right2" placement='right' overlay={
                     <Tooltip id={'tooltip'}>
                       Search for director, writer, or genre
@@ -203,54 +227,66 @@ class MovieReview extends Component {
             </Accordion.Collapse>
           </Card>
         </Accordion>
-        <div style={{width: "100%"}}>
-        {
-          this.state.data ? 
-          this.filterReviews().map(entry => 
-            <Container fluid key={entry.ID} style={{paddingBottom: "50px"}}>
-              <Row>
-                <Col>
-                  <h4>{entry.Title}:</h4>
-                  <h5>The Cecil Rank: #{entry.Cecil_Rank}</h5>
-                  <OverlayTrigger trigger="click" placement="right" overlay={this.displayOverlay(entry)}>
-                    <img src={entry.Poster_URL} alt={`Poster of ${entry.Title}`}/>
-                  </OverlayTrigger>
-                </Col>
-                {
-                  window.outerWidth > 700 ?
+        <Navbar sticky='top' bg='dark' variant='dark'>
+          <Navbar.Brand>Jump To:</Navbar.Brand>
+            {
+              this.displayScrollButtons().map(pos => 
+                <Navbar.Brand key={pos}><button onClick={() => window.scrollTo(0, this.calculateScrollPos(pos))}>{pos}</button></Navbar.Brand>
+              )
+            }
+        </Navbar>
+        <Container fluid>
+          <Col>
+          <Row>
+          {
+            this.state.data ? 
+            this.filterReviews().map(entry => 
+              <Container fluid key={entry.ID} id={`movieReview_${entry.Cecil_Rank}`} style={{paddingBottom: "50px"}} ref={entry.Cecil_Rank === 1 ? this.scrollPos : null}>
+                <Row>
                   <Col>
+                    <h4>{entry.Title}:</h4>
+                    <h5>The Cecil Rank: #{entry.Cecil_Rank}</h5>
+                    <OverlayTrigger trigger="click" placement="right" overlay={this.displayOverlay(entry)}>
+                      <img src={entry.Poster_URL} alt={`Poster of ${entry.Title}`}/>
+                    </OverlayTrigger>
+                  </Col>
                   {
-                    entry.rankings.map((rank, i) =>
-                    rank.Review_ID === entry.ID ? 
-                    <div key={i}>
-                      <OverlayTrigger trigger="click" placement="top" overlay={this.displayRankingOverlay(rank)}>
-                      <h5>{rank.Category_Name}: ({rank.Value}/8)</h5>
-                      </OverlayTrigger>
-                      <StarRatings 
-                        rating={rank.Value}
-                        starRatedColor='orange'
-                        numberOfStars={8}
-                        name={rank.Category_Name}
-                      />
-                    </div> : null
-                    )
+                    window.outerWidth > 700 ?
+                    <Col>
+                    {
+                      entry.rankings.map((rank, i) =>
+                      rank.Review_ID === entry.ID ? 
+                      <div key={i}>
+                        <OverlayTrigger trigger="click" placement="top" overlay={this.displayRankingOverlay(rank)}>
+                        <h5>{rank.Category_Name}: ({rank.Value}/8)</h5>
+                        </OverlayTrigger>
+                        <StarRatings 
+                          rating={rank.Value}
+                          starRatedColor='orange'
+                          numberOfStars={8}
+                          name={rank.Category_Name}
+                        />
+                      </div> : null
+                      )
+                    }
+                    </Col> : null
                   }
-                  </Col> : null
-                }
-                <Col>
-                  <h5>Review:</h5>              
-                  {
-                    entry.content.map(paragraph => 
-                      paragraph.Spoiler ? <p style={this.returnSpoilerStyle()} key={paragraph.ID}>{paragraph.Text}</p> : <p key={paragraph.ID}>{paragraph.Text}</p>
-                    )
-                  }
-                </Col>
-              </Row>
-            </Container>
-          ) :
-          <p>Loading...</p>
-        }
-        </div>
+                  <Col>
+                    <h5>Review:</h5>              
+                    {
+                      entry.content.map(paragraph => 
+                        paragraph.Spoiler ? <p style={this.returnSpoilerStyle()} key={paragraph.ID}>{paragraph.Text}</p> : <p key={paragraph.ID}>{paragraph.Text}</p>
+                      )
+                    }
+                  </Col>
+                </Row>
+              </Container>
+            ) :
+            <p>Loading...</p>
+          }
+          </Row>
+          </Col>
+        </Container>
       </div>
     )
   }
