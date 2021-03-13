@@ -136,7 +136,7 @@ class MovieReview extends Component {
   }
 
   calculateScrollPos = review => {
-    return (this.scrollPos.current.offsetHeight * review) - 400
+    return (this.scrollPos.current.offsetHeight * review) - (review < 15 ? 500 : 400)
   }
 
   displayOverlay = entry => {
@@ -240,12 +240,15 @@ class MovieReview extends Component {
           <Row>
           {
             this.state.data ? 
-            this.filterReviews().map(entry => 
+            this.filterReviews().map((entry, i) => 
               <Container fluid key={entry.ID} id={`movieReview_${entry.Cecil_Rank}`} style={{paddingBottom: "50px"}} ref={entry.Cecil_Rank === 1 ? this.scrollPos : null}>
                 <Row>
                   <Col>
                     <h4>{entry.Title}:</h4>
                     <h5>The Cecil Rank: #{entry.Cecil_Rank}</h5>
+                    {
+                      this.state.filterByRanking !== 'Cecil Rank' || this.state.toggleLeast ? <h5>Review Number: {i + 1}</h5> : null
+                    }
                     <OverlayTrigger trigger="click" placement="right" overlay={this.displayOverlay(entry)}>
                       <img src={entry.Poster_URL} alt={`Poster of ${entry.Title}`}/>
                     </OverlayTrigger>
