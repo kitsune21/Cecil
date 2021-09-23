@@ -10,6 +10,7 @@ class MenuBar extends Component {
         <ul id='menu'>
           <li id='menuTitle'><Link to='/'>Cecil Thomas</Link></li>
           <li id='menuItem'><Link to='/movies'>Movie Reviews</Link></li>
+          <li id='menuItem'><Link to='/marathon/'>Movie Marathons</Link></li>
           {/* <li id='menuItem'><Link to='/minecraft'>Minecraft Server</Link></li> */}
           <li id='menuItem'><Link to='/resume'>Resume</Link></li>
           <li id='menuItem'><a href='https://toolring.cecil-thomas.com' rel='external' target='__blank'>ToolRing</a></li>
