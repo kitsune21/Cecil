@@ -9,7 +9,7 @@ class BucketList extends Component {
   componentDidMount() { 
     axios({
       method: "GET",
-      url: 'http://localhost:3001/api/bucket_list'
+      url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/bucket_list'
     })
     .then(data => {
       this.setState({bucketListItems: data.data.listItems})

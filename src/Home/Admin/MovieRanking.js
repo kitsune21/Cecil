@@ -16,7 +16,7 @@ class MovieRanking extends Component {
   pullMovieReviews = () => {
     axios({
       method: "GET",
-      url: "http://localhost:3001/api/movie_reviews/cecil"
+      url: "https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/movie_reviews/cecil"
     })
     .then( reviews => {
       this.setState({movieReviews: [...reviews.data.reviews]});
@@ -29,7 +29,7 @@ class MovieRanking extends Component {
   pullRankingCategories = () => {
     axios({
       method: "GET",
-      url: "http://localhost:3001/api/ranking_category"
+      url: "https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/ranking_category"
     })
     .then( categories => {
       this.setState({rankingCategories: [...categories.data.data]});

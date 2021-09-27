@@ -11,7 +11,7 @@ class ReviewContentItem extends Component {
   componentDidMount() {
     axios({
       method: "GET",
-      url: `http://localhost:3001/api/content/${this.props.reviewID}`
+      url: `https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/content/${this.props.reviewID}`
     })
     .then(data => {
       if(data.data.content.length > 0){
@@ -24,7 +24,7 @@ class ReviewContentItem extends Component {
     e.preventDefault();
     axios({
       method: 'POST',
-      url: 'http://localhost:3001/api/content/add/',
+      url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/content/add/',
       data: {
         Review_ID: this.props.reviewID,
         Spoiler: e.target.elements.contentSpoiler.checked,
@@ -40,7 +40,7 @@ class ReviewContentItem extends Component {
     e.preventDefault();
     axios({
       method: 'PUT',
-      url: `http://localhost:3001/api/content/update/${this.props.reviewID}`,
+      url: `https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/content/update/${this.props.reviewID}`,
       data: {
         Spoiler: e.target.elements.contentSpoiler.checked,
         Text: e.target.elements.contentText.value,

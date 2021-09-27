@@ -12,7 +12,7 @@ class MovieRankingUpdate extends Component {
   pullRankingsForReview = () => {
     axios({
       method: "GET",
-      url: `http://localhost:3001/api/rankings/${this.props.myReviewID}`
+      url: `https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/rankings/${this.props.myReviewID}`
     })
     .then( rankings => {
       if(rankings.data.rankings.length > 0){
@@ -45,7 +45,7 @@ class MovieRankingUpdate extends Component {
     this.state.myRankings.forEach(ranking => {
       axios({
         method: 'PUT',
-        url: `http://localhost:3001/api/rankings/update/${ranking.ID}`,
+        url: `https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/rankings/update/${ranking.ID}`,
         data: {
           Value: ranking.Value
         }
@@ -73,7 +73,7 @@ class MovieRankingUpdate extends Component {
       if(parseInt(category.Value) > 0){
         axios({
           method: 'POST',
-          url: `http://localhost:3001/api/rankings/add`,
+          url: `https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/rankings/add`,
           data: {
             Review_ID: this.props.myReviewID,
             Category_ID: category.ID,

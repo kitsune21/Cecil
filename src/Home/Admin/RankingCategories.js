@@ -14,7 +14,7 @@ class RankingCategories extends Component {
   pullRankingCategories = () => {
     axios({
       method: "GET",
-      url: "http://localhost:3001/api/ranking_category"
+      url: "https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/ranking_category"
     })
     .then( categories => {
       this.setState({rankingCategories: [...categories.data.data]});
@@ -28,7 +28,7 @@ class RankingCategories extends Component {
     e.preventDefault();
     axios({
       method: "PUT",
-      url: `http://localhost:3001/api/ranking_category/update/${this.state.editID}`,
+      url: `https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/ranking_category/update/${this.state.editID}`,
       data: {
         Name: e.target.elements.categoryID.value
       }
@@ -46,7 +46,7 @@ class RankingCategories extends Component {
     e.preventDefault();
     axios({
       method: "POST",
-      url: `http://localhost:3001/api/ranking_category/add/`,
+      url: `https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/ranking_category/add/`,
       data: {
         Name: e.target.elements.categoryID.value
       }

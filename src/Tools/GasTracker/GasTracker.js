@@ -27,7 +27,7 @@ class GasTracker extends Component {
   componentDidMount() {
     axios({
       method: 'GET',
-      url: "http://localhost:3001/api/gas/reciepts"
+      url: "https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/gas/reciepts"
     })
     .then(data => {
       this.setState({reciepts: data.data.reciepts})
@@ -74,7 +74,7 @@ class GasTracker extends Component {
     console.log(event)
     axios({
       method: "POST",
-      url: 'http://localhost:3001/api/gas/reciepts/add',
+      url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/gas/reciepts/add',
       data: {...this.state.recieptObject}
     })
     .then(data => {

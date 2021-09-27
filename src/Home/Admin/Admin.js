@@ -20,7 +20,7 @@ class Admin extends Component {
   handleSubmit = (event) => {
     axios({
       method: "POST",
-      url: 'http://localhost:3001/api/websites/add',
+      url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/websites/add',
       data: {
         Href: event.target.elements.websiteHref.value,
         Title: event.target.elements.websiteTitle.value,
@@ -39,7 +39,7 @@ class Admin extends Component {
   handleSkillsSubmit = (event) => {
     axios({
       method: "POST",
-      url: 'http://localhost:3001/api/skills/add',
+      url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/skills/add',
       data: {
         Name: event.target.elements.skillsName.value,
         Years: event.target.elements.skillsYears.value,
@@ -57,7 +57,7 @@ class Admin extends Component {
   handleGamesSubmit = (event) => {
     axios({
       method: "POST",
-      url: 'http://localhost:3001/api/games/add',
+      url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/games/add',
       data: {
         Href: event.target.elements.gameHref.value,
         Title: event.target.elements.gameTitle.value,
@@ -76,7 +76,7 @@ class Admin extends Component {
   pullWorkData = () => {
     axios({
       method: 'GET',
-      url: 'http://localhost:3001/api/work'
+      url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/work'
     })
     .then(data => {
       this.setState({work: data.data.work})
@@ -89,7 +89,7 @@ class Admin extends Component {
   handleWorkSubmit = (event) => {
     axios({
       method: "POST",
-      url: 'http://localhost:3001/api/work/add',
+      url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/work/add',
       data: {
         Company: event.target.elements.workCompany.value,
         Href: event.target.elements.workHref.value,
@@ -112,7 +112,7 @@ class Admin extends Component {
   handleEducationSubmit = (event) => {
     axios({
       method: "POST",
-      url: 'http://localhost:3001/api/education/add',
+      url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/education/add',
       data: {
         Institution: event.target.elements.eduInstitution.value,
         Href: event.target.elements.eduHref.value,

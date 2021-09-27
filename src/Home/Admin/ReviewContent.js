@@ -11,7 +11,7 @@ class ReviewContent extends Component{
   componentDidMount() {
     axios({
       method: "GET",
-      url: "http://localhost:3001/api/movie_reviews/cecil"
+      url: "https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/movie_reviews/cecil"
     })
     .then( reviews => {
       this.setState({movieReviews: [...reviews.data.reviews]});

@@ -10,7 +10,7 @@ class CecilRank extends Component {
   componentDidMount() {
     axios({
       method: "GET",
-      url: "http://localhost:3001/api/movie_reviews/cecil",
+      url: "https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/movie_reviews/cecil",
     })
     .then( data => {
       if(this.props.movieInfo) {
@@ -59,7 +59,7 @@ class CecilRank extends Component {
   addNewReview = () => {
     axios({
       method: 'POST',
-      url: 'http://localhost:3001/api/movie_reviews/add',
+      url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/movie_reviews/add',
       data: {
         Title: this.state.newMovie.Title,
         Cecil_Rank: this.state.newMovieCecilRank,
@@ -97,7 +97,7 @@ class CecilRank extends Component {
   putCecilRank = (id, cRank) => {
     axios({
       method: 'PUT',
-      url: 'http://localhost:3001/api/movie_reviews/update/' + id,
+      url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/movie_reviews/update/' + id,
       data: {
         Cecil_Rank: cRank
       }

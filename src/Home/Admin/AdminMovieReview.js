@@ -21,7 +21,7 @@ class AdminMovieReview extends Component {
     movieTitle = movieTitle.replace(/\s/g, '+');
     axios({
       method: 'GET',
-      url: 'http://localhost:3001/api/movies/getOMDB/',
+      url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/movies/getOMDB/',
     })
     .then(data => {
       axios({
