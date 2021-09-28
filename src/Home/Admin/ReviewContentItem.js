@@ -46,9 +46,12 @@ class ReviewContentItem extends Component {
         Text: e.target.elements.contentText.value,
       }
     })
-    .then(
+    .then(data => {
       console.log('updated content')
-    );
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
   buttonEditToggle = (e) => {

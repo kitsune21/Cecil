@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import StarRatings from 'react-star-ratings';
 import axios from 'axios';
-import { Container, Row, Col, Popover, OverlayTrigger, Accordion, Card, Tooltip, Navbar } from 'react-bootstrap';
+import { Container, Row, Col, Popover, OverlayTrigger, Tooltip, Navbar, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class MovieReview extends Component {
@@ -185,48 +185,6 @@ class MovieReview extends Component {
     return(
       <div>
         <h2>Movie Reviews by Cecil:</h2>
-        <Accordion defaultActiveKey="1" style={{width: "20%"}}>
-          <Card>
-            <Accordion.Toggle eventKey="0">Filters</Accordion.Toggle>
-            <Accordion.Collapse eventKey="0">
-              <Card.Body>
-                <OverlayTrigger
-                  key="right"
-                  placement="right"
-                  overlay={
-                    <Tooltip id={`tooltip`}>
-                      Ties are won by their "Cecil Rank"
-                    </Tooltip>
-                  }
-                >
-                <select onChange={this.handleFilterChange}>
-                  <option key={8}>Cecil Rank</option>
-                  <option key={9}>Search by Movie Info</option>
-                  {
-                    this.state.rankingCategories.map(category => 
-                      <option key={category.ID}>{category.Name}</option>
-                    )
-                  }
-                </select>
-                </OverlayTrigger>
-                {
-                  this.state.filterByRanking === 'Search by Movie Info' ? 
-                  <OverlayTrigger key="right2" placement='right' overlay={
-                    <Tooltip id={'tooltip'}>
-                      Search for director, writer, or genre
-                    </Tooltip>
-                  }>
-                    <label>Search: <input onChange={this.handleReviewSearchChange} value={this.state.reviewSearch}/></label>
-                  </OverlayTrigger>
-                  : <p>Reverse the order <input onChange={this.handleToggleLeastChange} checked={this.state.toggleLeast} type='checkbox'></input></p> 
-                }
-                <p>{this.state.spoilerFree ? "Don't show spoilers" : "Show spoilers"}  <input checked={this.state.spoilerFree} onChange={this.handleSpoilerChange} type='checkbox'></input></p>
-                <p>Disclaimer! Cecil Rank is just my opinion on how enjoyable a movie is. It is very not scientific. It doesn't correlate with the ranking on the various categories.</p>
-              </Card.Body>
-              
-            </Accordion.Collapse>
-          </Card>
-        </Accordion>
         <Navbar sticky='top' bg='dark' variant='dark'>
           <Navbar.Brand>Jump To:</Navbar.Brand>
             {
@@ -234,6 +192,31 @@ class MovieReview extends Component {
                 <Navbar.Brand key={pos}><button onClick={() => window.scrollTo(0, this.calculateScrollPos(pos))}>{pos}</button></Navbar.Brand>
               )
             }
+          <Navbar.Brand>Filter By: </Navbar.Brand>
+          <select onChange={this.handleFilterChange} style={{width: '20%', marginTop: '15px', marginRight: '20px'}}>
+            <option key={8}>Cecil Rank</option>
+            <option key={9}>Search by Movie Info</option>
+            {
+              this.state.rankingCategories.map(category => 
+                <option key={category.ID}>{category.Name}</option>
+              )
+            }
+          </select>
+          {
+            this.state.filterByRanking === 'Search by Movie Info' ? 
+            <OverlayTrigger key="right2" placement='right' overlay={
+              <Tooltip id={'tooltip'}>
+                Search for director, writer, or genre
+              </Tooltip>
+            }>
+              <Navbar.Brand>Search: <input onChange={this.handleReviewSearchChange} value={this.state.reviewSearch}/></Navbar.Brand>
+            </OverlayTrigger>
+            : null
+          }
+          <ToggleButtonGroup type='radio' name='spoiler' className='spoilerButtons' defaultValue={true} onChange={this.handleSpoilerChange}>
+            <ToggleButton id='toggle-check-no' value={true}>No Spoilers</ToggleButton>
+            <ToggleButton id='toggle-check-yes' value={false}>Spoilers</ToggleButton>
+          </ToggleButtonGroup>
         </Navbar>
         <Container fluid>
           <Col>
@@ -245,7 +228,13 @@ class MovieReview extends Component {
                 <Row>
                   <Col>
                     <h4>{entry.Title}:</h4>
-                    <h5>The Cecil Rank: #{entry.Cecil_Rank}</h5>
+                    <OverlayTrigger placement='top' overlay={
+                      <Tooltip id={'tooltip'}>
+                        Cecil Rank is just my opinion on how enjoyable a movie is. It is very not scientific. It doesn't correlate with the ranking on the various categories.
+                      </Tooltip>
+                    }>
+                      <h5>The Cecil Rank: #{entry.Cecil_Rank}</h5>
+                    </OverlayTrigger>
                     {
                       this.state.filterByRanking !== 'Cecil Rank' || this.state.toggleLeast ? <h5>Review Number: {i + 1}</h5> : null
                     }
@@ -277,8 +266,8 @@ class MovieReview extends Component {
                   <Col>
                     <h5>Review:</h5>              
                     {
-                      entry.content.map(paragraph => 
-                        paragraph.Spoiler ? <p style={this.returnSpoilerStyle()} key={paragraph.ID}>{paragraph.Text}</p> : <p key={paragraph.ID}>{paragraph.Text}</p>
+                      entry.content.sort((a, b) => ( a.Spoiler === b.Spoiler ? 0 : a.Spoiler ? 1 : -1)).map(paragraph => 
+                        <p key={paragraph.ID}>{paragraph.Spoiler ? !this.state.spoilerFree ? paragraph.Text : null : paragraph.Text}</p>
                       )
                     }
                   </Col>
