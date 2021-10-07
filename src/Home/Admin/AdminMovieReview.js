@@ -4,6 +4,7 @@ import CecilRank from './CecilRank';
 import MovieRanking from './MovieRanking';
 import ReviewContent from './ReviewContent';
 import RankingCategories from './RankingCategories';
+import AdminMarathon from './AdminMarathon';
 
 class AdminMovieReview extends Component {
 
@@ -63,6 +64,7 @@ class AdminMovieReview extends Component {
   render() {
     return(
       <>
+        <AdminMarathon />
         <div>
           <button onClick={this.toggleRankingCategoriesView}>Edit Ranking Categories</button>
           {
