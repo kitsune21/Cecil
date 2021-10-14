@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
+import CommonMarathons from './CommonMarathons'
+import MarathonLength from './MarathonLength'
 
 const Container = styled.div`
   display: flex;
@@ -91,10 +93,6 @@ function Marathon() {
     setMarathonLength(0)
   }
 
-  function returnHoursAndMinutes() {
-    return `${parseInt(marathonLength / 60)}:${marathonLength % 60}`
-  }
-
   function removeSelection(selection) {
     if(marathonList.length === 1) {
       setMarathonList([])
@@ -142,6 +140,7 @@ function Marathon() {
 
   return(
     <Container>
+      <CommonMarathons />
       <p>Search for a movie title, and then select it as part of your movie marathon.</p>
       <div>
         <form onSubmit={movieSearch}>
@@ -164,9 +163,8 @@ function Marathon() {
           <h2>Your Marathon:</h2>
           {
             movieLengthList ?
-            <div>
-              Marathon is {marathonLength} total minutes long, {returnHoursAndMinutes()} hours long.
-            </div>
+            <MarathonLength marathonLength={marathonLength}/>
+
             : null
           }
           <MarathonRow>
