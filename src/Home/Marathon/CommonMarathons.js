@@ -25,7 +25,7 @@ function CommonMarathons() {
   function getCommonMarathons() {
     axios({
       method: 'GET',
-      url: `https://6f4jesporh.execute-api.us-west-2.amazonaws.com/marathon/common-marathons`
+      url: `https://6f4jesporh.execute-api.us-west-2.amazonaws.com/marathon/common-marathons/length`
     })
     .then(res => {
       setMarathons(res.data.data)
