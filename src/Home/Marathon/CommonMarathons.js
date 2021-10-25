@@ -4,8 +4,8 @@ import CommonMarathonEntry from './CommonMarathonEntry'
 import styled from 'styled-components'
 
 const Container = styled.div`
-    height: 40%;
-    width: 100%;
+    height: 100%;
+    width: 20%;
     border: 2px solid white;
     border-radius: 4px;
     display: flex;
@@ -36,20 +36,14 @@ function CommonMarathons() {
   }
 
   return(
-    <div>
-      <h4 onClick={() => setDisplay(!display)}>View Common Marathons</h4>
-      {
-        display ?
-        <Container>
-        {
-          marathons?.map(marathon =>
-            <CommonMarathonEntry key={marathon.ID} marathon={marathon}/> 
-          )
-        }
-        </Container>
-        : null
-      }
-    </div>
+    <Container>
+      <p>Common Marathons:</p>
+    {
+      marathons?.map(marathon =>
+        <CommonMarathonEntry key={marathon.ID} marathon={marathon}/> 
+      )
+    }
+    </Container>
     
   )
 }

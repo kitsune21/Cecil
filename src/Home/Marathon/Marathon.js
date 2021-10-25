@@ -6,7 +6,7 @@ import MarathonLength from './MarathonLength'
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-content: center;
   justify-conent: space-around;
   text-align: center;
@@ -141,8 +141,8 @@ function Marathon() {
   return(
     <Container>
       <CommonMarathons />
-      <p>Search for a movie title, and then select it as part of your movie marathon.</p>
       <div>
+        <p>Search for a movie title, and then select it as part of your movie marathon.</p>
         <form onSubmit={movieSearch}>
           <label htmlFor='movieTitle'>Movie Title: 
             <input id='movieTitle'/>

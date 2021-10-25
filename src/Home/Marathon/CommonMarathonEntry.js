@@ -34,7 +34,7 @@ function CommonMarathonEntry({marathon}) {
 
   return(
     <div>
-      <p onClick={() => setDisplay(!display)}>{marathon.Title} | {parseInt(marathon.Total_Length / 60)}:{calculateMinutes(marathon.Total_Length)} hours</p>
+      <button onClick={() => setDisplay(!display)}>{marathon.Title} | {parseInt(marathon.Total_Length / 60)}:{calculateMinutes(marathon.Total_Length)} hours</button>
       {
         display ?
         <ul>
