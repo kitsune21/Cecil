@@ -8,21 +8,19 @@ function CommonMarathonEntry({marathon}) {
   const [ display, setDisplay ] = React.useState(false)
 
   React.useEffect(() => {
-    getEntries()
-  }, [])
-
-  function getEntries() {
-    axios({
-      method: 'GET',
-      url: `https://6f4jesporh.execute-api.us-west-2.amazonaws.com/marathon/common-marathons/entries/${marathon.ID}`
-    })
-    .then(res => {
-      setEntries(res.data.data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }
+    if(marathon.ID) {
+      axios({
+        method: 'GET',
+        url: `https://6f4jesporh.execute-api.us-west-2.amazonaws.com/marathon/common-marathons/entries/${marathon.ID}`
+      })
+      .then(res => {
+        setEntries(res.data.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+  }, [marathon.ID])
 
   function calculateMinutes(length) {
     if(length % 60 < 10) {
@@ -34,14 +32,16 @@ function CommonMarathonEntry({marathon}) {
 
   return(
     <div>
-      <button onClick={() => setDisplay(!display)}>{marathon.Title} | {parseInt(marathon.Total_Length / 60)}:{calculateMinutes(marathon.Total_Length)} hours</button>
+      <button onClick={() => setDisplay(!display)}>{marathon.Title ? marathon.Title : "Cecil Rank Marathon"} | {parseInt(marathon.Total_Length / 60)}:{calculateMinutes(marathon.Total_Length)} hours</button>
       {
         display ?
         <ul>
         {
-          entries?.map(entry =>
-            <li key={entry.ID}>{entry.Title} | {parseInt(entry.Length / 60)}:{calculateMinutes(entry.Length)} hours</li>  
-          )
+          marathon.ID ?
+            entries?.map(entry =>
+              <li key={entry.ID}>{entry.Title} | {parseInt(entry.Length / 60)}:{calculateMinutes(entry.Length)} hours</li>  
+            )
+          : <p>Please see "Movie Reviews" for the list</p>
         }
         </ul> : null
       }

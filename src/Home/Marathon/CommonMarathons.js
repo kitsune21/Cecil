@@ -16,19 +16,27 @@ const Container = styled.div`
 function CommonMarathons() {
 
   const [ marathons, setMarathons ] = React.useState([])
-  const [ display, setDisplay ] = React.useState(false)
 
   React.useEffect(() => {
-    getCommonMarathons()
-  }, [])
-
-  function getCommonMarathons() {
     axios({
       method: 'GET',
       url: `https://6f4jesporh.execute-api.us-west-2.amazonaws.com/marathon/common-marathons/length`
     })
     .then(res => {
-      setMarathons(res.data.data)
+      getCecilMarathon(res.data.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }, [])
+
+  function getCecilMarathon(commonMarathons) {
+    axios({
+      method: 'GET',
+      url: `https://6f4jesporh.execute-api.us-west-2.amazonaws.com/marathon/cecil-rank-marathon`
+    })
+    .then(res => {
+      setMarathons([...commonMarathons, res.data.data])
     })
     .catch(err => {
       console.log(err)
@@ -38,11 +46,11 @@ function CommonMarathons() {
   return(
     <Container>
       <p>Common Marathons:</p>
-    {
-      marathons?.map(marathon =>
-        <CommonMarathonEntry key={marathon.ID} marathon={marathon}/> 
-      )
-    }
+      {
+        marathons?.map(marathon =>
+          <CommonMarathonEntry key={marathon.ID ? marathon.ID : 'Cecil-Rank'} marathon={marathon}/> 
+        )
+      }
     </Container>
     
   )

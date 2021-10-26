@@ -7,7 +7,7 @@ function MenuBar() {
   const [cookie, setCookie] = React.useState()
 
   function getCookie() {
-    let myCookie = document.cookie.match("(^|;)\\s*" + 'super-duper-mega-ultra-secret-cookie' + "\\s*=\\s*([^;]+)")
+    let myCookie = document.cookie.match("(^|;)\\s*super-duper-mega-ultra-secret-cookie\\s*=\\s*([^;]+)")
     return myCookie ? myCookie.pop() : ""
   }
 

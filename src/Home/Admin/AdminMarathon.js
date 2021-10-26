@@ -41,7 +41,6 @@ function AdminMarathon() {
 
   function submitMarathonEntry(e) {
     e.preventDefault()
-    let id = e.target.elements.imdbID.value
     axios({
       method: 'GET',
       url: `https://6f4jesporh.execute-api.us-west-2.amazonaws.com/marathon/search/id/${e.target.elements.imdbID.value}/${selectedMarathon}/${e.target.elements.order.value}`

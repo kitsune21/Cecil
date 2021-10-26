@@ -7,8 +7,6 @@ import MarathonLength from './MarathonLength'
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  align-content: center;
-  justify-conent: space-around;
   text-align: center;
 `
 
@@ -30,8 +28,6 @@ const SearchImage = styled.button`
 const MarathonContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-content: center;
-  justify-conent: space-around;
   text-align: center;
 `
 
@@ -39,6 +35,10 @@ const MarathonRow = styled.div`
   flex-direction: row;
   align-content: center;
   justify-conent: space-around;
+`
+
+const MarathonSearch = styled.div`
+  top: 10%;
 `
 
 function Marathon() {
@@ -131,7 +131,7 @@ function Marathon() {
 
   function updateMarathonLength(entryList) {
     let total = 0
-    entryList.map(movie => {
+    entryList.forEach(movie => {
       total += movie.length
     })
     setMarathonLength(total)
@@ -142,6 +142,7 @@ function Marathon() {
     <Container>
       <CommonMarathons />
       <div>
+      <MarathonSearch>
         <p>Search for a movie title, and then select it as part of your movie marathon.</p>
         <form onSubmit={movieSearch}>
           <label htmlFor='movieTitle'>Movie Title: 
@@ -156,7 +157,7 @@ function Marathon() {
             : null
           )
         }
-      </div>
+      </MarathonSearch>
       {
         marathonList.length > 0 ? 
         <MarathonContainer>
@@ -178,6 +179,7 @@ function Marathon() {
         </MarathonContainer>
         : null
       }
+      </div>
     </Container>
   )
 }
