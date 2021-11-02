@@ -3,13 +3,9 @@ import Home from './Home/Home.js';
 import { Switch, Route } from 'react-router-dom';
 import MenuBar from './Home/Menu';
 import Resume from './Resume/Resume';
-import Blog from './Blog/Blog_HOC';
 import MovieReview from './Home/Movie/MovieReview';
-import BucketList from './Home/BucketList/BucketList';
-import GasTracker from './Tools/GasTracker/GasTracker';
 import Admin from './Home/Admin/Admin';
 import AdminMovieReview from './Home/Admin/AdminMovieReview';
-import Minecraft from './Home/Minecraft/Minecraft';
 import Marathon from './Home/Marathon/Marathon'
 
 
@@ -20,15 +16,10 @@ function App() {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route exact path='/resume' component={Resume} />
-        <Route exact path='/blog/' component={Blog} />
-        <Route exact path='/blog/:blogId' component={Blog} />
         <Route exact path='/movies' component={MovieReview}/>
         <Route exact path='/marathon' component={Marathon}/>
-        <Route exact path='/bucketlist' component={BucketList} />
-        <Route exact path='/gas_tracker' component={GasTracker} />
         <Route exact path='/____admin' component={Admin} />
         <Route exact path='/____admin/movie' component={AdminMovieReview} />
-        <Route exact path='/minecraft' component={Minecraft} />
       </Switch>
     </div>
   );
