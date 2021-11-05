@@ -1,8 +1,8 @@
 import React from 'react';
 import StarRatings from 'react-star-ratings';
-import axios from 'axios';
 import { Container, Row, Col, Popover, OverlayTrigger, Tooltip, Navbar, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { getMovieReviews, getRankingCategories } from '../../API/api'
 
 function MovieReview() {
 
@@ -15,36 +15,9 @@ function MovieReview() {
   const [ reviewSearch, setReviewSearch ] = React.useState('')
 
   React.useEffect(() => {
-    getMovieReviews()
-    getRankingCategories()
+    getMovieReviews(setReviews)
+    getRankingCategories(setRankingCategories)
   }, [])
-
-  function getMovieReviews() {
-    axios({
-      method: "GET",
-      url: "https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/movie_reviews",
-    })
-    .then( data => {
-      setReviews(data.data.reviews)
-    })
-    .catch( err => { console.log(err)});
-  }
-
-  function getRankingCategories() {
-    axios({
-      method: "GET",
-      url: "https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/ranking_category"
-    })
-    .then( data => {
-      let rankingCategories = data.data.data.map(category => {
-        return category;
-      })
-      setRankingCategories([...rankingCategories])
-    })
-    .catch( err => {
-      console.log(err)
-    });
-  }
 
   function fuzzy_match(str,pattern) {
     pattern = pattern.split("").reduce((a,b) => { return a+".*"+b; })
@@ -202,7 +175,7 @@ function MovieReview() {
         <Row>
         {
           reviews ? 
-          filterReviews().map((entry, i) => 
+          filterReviews().map((entry) => 
             <Container fluid key={entry.ID} id={`movieReview_${entry.Cecil_Rank}`} style={{paddingBottom: "50px"}} ref={entry.Cecil_Rank === 1 ? scrollPos : null}>
               <Row>
                 <Col>
@@ -243,7 +216,7 @@ function MovieReview() {
                   <h5>Review:</h5>              
                   {
                     entry.content.sort((a, b) => ( a.Spoiler === b.Spoiler ? 0 : a.Spoiler ? 1 : -1)).map(paragraph => 
-                      <p key={paragraph.ID}>{paragraph.Spoiler ? !spoilerFree ? paragraph.Text : 'Spoiler' : paragraph.Text}</p>
+                      <p key={paragraph.ID}>{paragraph.Spoiler ? !spoilerFree ? paragraph.Text : null : paragraph.Text}</p>
                     )
                   }
                 </Col>

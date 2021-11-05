@@ -1,7 +1,7 @@
 import React from 'react';
 import WorkEntry from './Work/WorkEntry';
 import ItemsCarousel from 'react-items-carousel';
-import axios from 'axios';
+import { getWork } from '../API/api'
 
 function Work() {
 
@@ -9,16 +9,7 @@ function Work() {
   const [activeItemIndex, setActiveItemIndex] = React.useState(0)
 
   React.useEffect(() => {
-    axios({
-      method: 'GET',
-      url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/work'
-    })
-    .then(data => {
-      setWork(data.data.work)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    getWork(setWork)
   }, [])
 
   function onChange(value) {setActiveItemIndex(value)}

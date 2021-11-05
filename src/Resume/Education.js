@@ -1,21 +1,12 @@
 import React from 'react';
-import axios from 'axios';
+import { getter } from '../API/api'
 
 function Education({returnFormattedDate}) {
   
   const [ education, setEducation ] = React.useState()
 
   React.useEffect(() => {
-    axios({
-      method: 'GET',
-      url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/education'
-    })
-    .then(data => {
-      setEducation(data.data.data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    getter(setEducation, '/api/education')
   }, [])
 
   return(

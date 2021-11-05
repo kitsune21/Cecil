@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios'
+import { getCommonMarathonsWithCecilMarathon } from '../../API/api'
 import CommonMarathonEntry from './CommonMarathonEntry'
 import styled from 'styled-components'
 
@@ -18,30 +18,8 @@ function CommonMarathons() {
   const [ marathons, setMarathons ] = React.useState([])
 
   React.useEffect(() => {
-    axios({
-      method: 'GET',
-      url: `https://6f4jesporh.execute-api.us-west-2.amazonaws.com/marathon/common-marathons/length`
-    })
-    .then(res => {
-      getCecilMarathon(res.data.data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    getCommonMarathonsWithCecilMarathon(setMarathons)
   }, [])
-
-  function getCecilMarathon(commonMarathons) {
-    axios({
-      method: 'GET',
-      url: `https://6f4jesporh.execute-api.us-west-2.amazonaws.com/marathon/cecil-rank-marathon`
-    })
-    .then(res => {
-      setMarathons([...commonMarathons, res.data.data])
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }
 
   return(
     <Container>

@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import { getter } from '../API/api'
 import ItemsCarousel from 'react-items-carousel';
 
 function Games({returnFormattedDate}) {
@@ -8,14 +8,7 @@ function Games({returnFormattedDate}) {
   const [ activeItemIndex, setActiveItemIndex ] = React.useState()
 
   React.useEffect(() => {
-    axios({
-      method: 'GET',
-      url: "https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/games",
-    })
-    .then(data => {
-      setMyGames(data.data.data);
-    })
-    .catch(err => {console.log(err)});
+    getter(setMyGames, "/api/games")
   }, [])
 
   function onChange(value) {

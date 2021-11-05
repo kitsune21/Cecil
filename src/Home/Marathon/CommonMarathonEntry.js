@@ -1,6 +1,5 @@
 import React from 'react'
-import axios from 'axios'
-//import MarathonLength from './MarathonLength'
+import { getter } from '../../API/api'
 
 function CommonMarathonEntry({marathon}) {
 
@@ -9,16 +8,7 @@ function CommonMarathonEntry({marathon}) {
 
   React.useEffect(() => {
     if(marathon.ID) {
-      axios({
-        method: 'GET',
-        url: `https://6f4jesporh.execute-api.us-west-2.amazonaws.com/marathon/common-marathons/entries/${marathon.ID}`
-      })
-      .then(res => {
-        setEntries(res.data.data)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+      getter(setEntries, `marathon/common-marathons/entries/${marathon.ID}`)
     }
   }, [marathon.ID])
 
