@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios'
+import { movieSearchOMDB, searchMovieByIDAndAddMinutes } from '../../API/api'
 import styled from 'styled-components'
 import CommonMarathons from './CommonMarathons'
 import MarathonLength from './MarathonLength'
@@ -54,36 +54,13 @@ function Marathon() {
     let movieTitle = e.target.elements.movieTitle.value;
     movieTitle = movieTitle.replace(/\s/g, '+');
     e.preventDefault()
-    axios({
-      method: "GET",
-      url: "https://6f4jesporh.execute-api.us-west-2.amazonaws.com/marathon/search/" + movieTitle,
-    })
-    .then( data => {
-      setSearchList([...data.data.data.Search])
-    })
-    .catch( err => { console.log(err)});
-  }
-
-  function addMinutes(movieID) {
-    axios({
-      method: "GET",
-      url: "https://6f4jesporh.execute-api.us-west-2.amazonaws.com/marathon/search/runtime/" + movieID,
-    })
-    .then( data => {
-      let movieEntry = {
-        id: movieID,
-        length: parseInt(data.data.data)
-      }
-      setMovieLengthList([...movieLengthList, movieEntry])
-      setMarathonLength(marathonLength + parseInt(data.data.data))
-    })
-    .catch( err => { console.log(err)});
+    movieSearchOMDB(setSearchList, movieTitle)
   }
 
   function addSelectionToList(e, data) {
     e.preventDefault()
     setMarathonList([...marathonList, data])
-    addMinutes(data.imdbID)
+    searchMovieByIDAndAddMinutes(data.imdbID, movieLengthList, setMovieLengthList, marathonLength, setMarathonLength)
     removeSelectionFromSearch(data.imdbID)
   }
 

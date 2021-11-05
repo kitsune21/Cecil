@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 // import About from './About';
 import Education from './Education';
 import Work from './Work';
@@ -7,27 +7,23 @@ import Websites from './Websites';
 import Games from './Games';
 import Skills from './Skills';
 
-class Resume extends Component {
+function Resume() {
 
-  returnFormattedDate = myDate => {
+  function returnFormattedDate(myDate) {
     let newDate = new Date(myDate);
     return `${newDate.getMonth() + 1}/${newDate.getFullYear()}`
   }
 
-  render() {
-    return(
-      <div>
-        <a href='https://s3-us-west-1.amazonaws.com/cecil-thomas.com/Assets/Resume.pdf' target='__blank' download>Download PDF</a>
-        {/* <About /> */}
-        <Websites />
-        <Games returnFormattedDate={this.returnFormattedDate}/>
-        <Work returnFormattedDate={this.returnFormattedDate}/>
-        <Education returnFormattedDate={this.returnFormattedDate}/>
-        <Skills />
-        {/* <Awards /> */}
-      </div>
-    )
-  }
+  return(
+    <div>
+      <a href='https://s3-us-west-1.amazonaws.com/cecil-thomas.com/Assets/Resume.pdf' target='__blank' download>Download PDF</a>
+      <Websites />
+      <Games returnFormattedDate={returnFormattedDate}/>
+      <Work returnFormattedDate={returnFormattedDate}/>
+      <Education returnFormattedDate={returnFormattedDate}/>
+      <Skills />
+    </div>
+  )
 }
 
 export default Resume;

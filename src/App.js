@@ -4,8 +4,8 @@ import { Switch, Route } from 'react-router-dom';
 import MenuBar from './Home/Menu';
 import Resume from './Resume/Resume';
 import MovieReview from './Home/Movie/MovieReview';
-import Admin from './Home/Admin/Admin';
-import AdminMovieReview from './Home/Admin/AdminMovieReview';
+import Admin from './Admin/Admin';
+import AdminMovieReview from './Admin/AdminMovieReview';
 import Marathon from './Home/Marathon/Marathon'
 
 

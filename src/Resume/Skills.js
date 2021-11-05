@@ -1,44 +1,28 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { getSkills } from '../API/api'
 
-class Skills extends Component {
+function Skills() {
 
-  state = {
-    test: null,
-    test2: undefined
-  }
+  const [ skills, setSkills ] = React.useState()
 
-  componentDidMount() {
-    axios({
-      method: 'GET',
-      url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/skills'
-    })
-    .then(data => {
-      this.setState({skills: data.data.skills})
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }
+  React.useEffect(() => {
+    getSkills(setSkills)
+  }, [])
 
-  render() {
-    return(
-      <div className='portfolio' style={{width: '50%', paddingLeft: '30px'}}>
-        <h3>Skills:</h3>
-        {
-          this.state.skills !== undefined ?
-          this.state.skills.map(skillGroup => 
-            <ul style={{float: "left"}} key={skillGroup[0].ID}>
-            {skillGroup.map(skill =>
-              <li key={skill.ID}>{skill.Name}: {skill.Years} (years)</li>
-            )}
-            </ul>
-          ) :
-          <p>Loading...</p>
-        }
-      </div>
-    )
-  }
+  return(
+    <div className='portfolio' style={{width: '50%', paddingLeft: '30px'}}>
+      <h3>Skills:</h3>
+      {
+        skills?.map(skillGroup => 
+          <ul style={{float: "left"}} key={skillGroup[0].ID}>
+          {skillGroup.map(skill =>
+            <li key={skill.ID}>{skill.Name}: {skill.Years} (years)</li>
+          )}
+          </ul>
+        )
+      }
+    </div>
+  )
 }
 
 export default Skills;

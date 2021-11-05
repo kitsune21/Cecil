@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ItemsCarousel from 'react-items-carousel';
-import axios from 'axios';
+import { getWebsites } from '../API/api'
 
 const Websites = () => {
 
@@ -8,16 +8,7 @@ const Websites = () => {
   const [activeItemIndex, setActiveItemIndex,] = useState(0);
 
   useEffect(() => {
-    axios({
-      method: 'GET',
-      url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/websites'
-    })
-    .then(data => {
-      setMyWebsites(data.data.websites);
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    getWebsites(setMyWebsites)
   }, []);
 
     return(
