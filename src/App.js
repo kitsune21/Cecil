@@ -15,11 +15,11 @@ function App() {
       <MenuBar />
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route exact path='/resume' component={Resume} />
-        <Route exact path='/movies' component={MovieReview}/>
-        <Route exact path='/marathon' component={Marathon}/>
-        <Route exact path='/____admin' component={Admin} />
-        <Route exact path='/____admin/movie' component={AdminMovieReview} />
+        <Route path='/resume' component={Resume} />
+        <Route path='/movies' component={MovieReview}/>
+        <Route path='/marathon' component={Marathon}/>
+        <Route path='/____admin' component={Admin} />
+        <Route path='/____admin/movie' component={AdminMovieReview} />
       </Switch>
     </div>
   );
