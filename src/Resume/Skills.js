@@ -16,7 +16,7 @@ function Skills() {
         skills?.map(skillGroup => 
           <ul style={{float: "left"}} key={skillGroup[0].ID}>
           {skillGroup.map(skill =>
-            <li key={skill.ID}>{skill.Name}: {skill.Years} (years)</li>
+            <li key={skill.ID}>{skill.Name}: {skill.Years} years</li>
           )}
           </ul>
         )

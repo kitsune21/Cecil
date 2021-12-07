@@ -5,15 +5,11 @@ import ItemsCarousel from 'react-items-carousel';
 function Games({returnFormattedDate}) {
 
   const [ myGames, setMyGames ] = React.useState()
-  const [ activeItemIndex, setActiveItemIndex ] = React.useState()
+  const [ activeItemIndex, setActiveItemIndex ] = React.useState(0)
 
   React.useEffect(() => {
     getter(setMyGames, "/api/games")
   }, [])
-
-  function onChange(value) {
-    setActiveItemIndex(value)
-  }
 
   return(
     <div className='portfolio' style={{width: '50%', paddingLeft: '30px'}}>
@@ -25,7 +21,7 @@ function Games({returnFormattedDate}) {
           gutter={5}
           numberOfCards={2}
           activeItemIndex={activeItemIndex}
-          requestToChangeActive={onChange}
+          requestToChangeActive={setActiveItemIndex}
           leftChevron={<button>{'<'}</button>} 
           rightChevron={<button>{'>'}</button>}
           outsideChevron
@@ -33,11 +29,11 @@ function Games({returnFormattedDate}) {
         >
         {
           myGames.map( entry =>
-            <ul key={entry.ID} style={{ height: 200, width: '100%', background: '#EEE', padding: '5px', listStyle: 'none'}}>
-              <li><a href={entry.Href} rel='noopener noreferrer' target='_blank'>{entry.Title}</a></li>
-              <li>{entry.Description}</li>
-              <li><b>Released: {returnFormattedDate(entry.Released)}</b></li>
-            </ul> )
+            <div key={entry.ID} style={{ height: 200, width: '100%', background: '#EEE', padding: '5px', listStyle: 'none'}}>
+              <p><a href={entry.Href} rel='noopener noreferrer' target='_blank'>{entry.Title}</a></p>
+              <p>{entry.Description}</p>
+              <p><b>Released: {returnFormattedDate(entry.Released)}</b></p>
+            </div> )
         }
         </ItemsCarousel>
         : <p>Loading...</p>

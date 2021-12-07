@@ -2,13 +2,16 @@ import axios from 'axios'
 
 const URL = "https://6f4jesporh.execute-api.us-west-2.amazonaws.com/"
 
-export function getter(setter, url) {
+export function getter(setter, url, debug=false) {
   axios({
     method: 'GET',
     url: URL + url
   })
   .then(res => {
     setter([...res.data.data])
+    if(debug){
+      console.log(res.data.data)
+    }
   })
   .catch(err => {
     console.log(err)

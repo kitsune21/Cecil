@@ -18,6 +18,7 @@ class Admin extends Component {
   }
 
   handleSubmit = (event) => {
+    event.preventDefault()
     axios({
       method: "POST",
       url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/websites/add',
@@ -37,6 +38,7 @@ class Admin extends Component {
   }
 
   handleSkillsSubmit = (event) => {
+    event.preventDefault()
     axios({
       method: "POST",
       url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/skills/add',
@@ -55,6 +57,7 @@ class Admin extends Component {
   }
 
   handleGamesSubmit = (event) => {
+    event.preventDefault()
     axios({
       method: "POST",
       url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/games/add',
@@ -87,6 +90,7 @@ class Admin extends Component {
   }
 
   handleWorkSubmit = (event) => {
+    event.preventDefault()
     axios({
       method: "POST",
       url: 'https://6f4jesporh.execute-api.us-west-2.amazonaws.com/api/work/add',
