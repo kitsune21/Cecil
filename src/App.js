@@ -18,7 +18,7 @@ function App() {
         <Route path='/resume' component={Resume} />
         <Route path='/movies' component={MovieReview}/>
         <Route path='/marathon' component={Marathon}/>
-        <Route path='/____admin' component={Admin} />
+        <Route exact path='/____admin' component={Admin} />
         <Route exact path='/____admin/movie' component={AdminMovieReview} />
       </Switch>
     </div>
