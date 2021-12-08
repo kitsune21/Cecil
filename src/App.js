@@ -19,7 +19,7 @@ function App() {
         <Route path='/movies' component={MovieReview}/>
         <Route path='/marathon' component={Marathon}/>
         <Route path='/____admin' component={Admin} />
-        <Route path='/____admin/movie' component={AdminMovieReview} />
+        <Route exact path='/____admin/movie' component={AdminMovieReview} />
       </Switch>
     </div>
   );
