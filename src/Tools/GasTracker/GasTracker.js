@@ -9,7 +9,7 @@ function GasTracker() {
   const [report, setReport] = React.useState()
 
   React.useEffect(() => {
-    getter(setReciepts, "/api/gas/reciepts")
+    getter(setReciepts, "api/gas/reciepts")
     getGasReport(setReport)
   }, [])
 

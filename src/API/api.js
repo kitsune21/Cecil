@@ -1,6 +1,6 @@
 import axios from 'axios' 
 
-const URL = "https://6f4jesporh.execute-api.us-west-2.amazonaws.com"
+const URL = "https://6f4jesporh.execute-api.us-west-2.amazonaws.com/"
 //const URL = "http://localhost:3001"
 
 export function getter(setter, url, debug=false) {
@@ -91,7 +91,7 @@ export function searchMovieByIDAndAddMinutes(movieID, movieLengthList, setMovieL
 export function getSkills(setter) {
   axios({
     method: 'GET',
-    url: URL + "/api/skills"
+    url: URL + "api/skills"
   })
   .then(res => {
     setter(res.data.skills)
@@ -104,7 +104,7 @@ export function getSkills(setter) {
 export function getWebsites(setter) {
   axios({
     method: 'GET',
-    url: URL + "/api/websites"
+    url: URL + "api/websites"
   })
   .then(res => {
     setter(res.data.websites)
@@ -117,7 +117,7 @@ export function getWebsites(setter) {
 export function getWork(setter) {
   axios({
     method: 'GET',
-    url: URL + "/api/work"
+    url: URL + "api/work"
   })
   .then(res => {
     setter(res.data.work)
@@ -130,7 +130,7 @@ export function getWork(setter) {
   export function getGasReport(setter) {
     axios({
       method: 'GET',
-      url: URL + "/api/gas/report"
+      url: URL + "api/gas/report"
     })
     .then(res => {
       setter(res.data.report)
