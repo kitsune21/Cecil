@@ -68,17 +68,13 @@ function GasTracker() {
     })
   }
 
-  const updateState = ({target}) => {
-    this.setState({recieptObject: {...this.state.recieptObject, [target.id]: target.value}});
-  }
-
   return(
     <>
       <div>
         <h3>Submit Reciept:</h3>
         <form onSubmit={handleSubmit}>
           <label>Date: 
-            <input id='myDate' type='date' defaultValue={new Date().toLocaleDateString('en-CA')} onChange={updateState}/>
+            <input id='myDate' type='date' defaultValue={new Date().toLocaleDateString('en-CA')}/>
           </label>
           <label>Total Sale: 
             <input id='Total_Sale' type='text'/>
