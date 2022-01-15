@@ -1,6 +1,7 @@
 import axios from 'axios' 
 
-const URL = "https://6f4jesporh.execute-api.us-west-2.amazonaws.com/"
+const URL = "https://6f4jesporh.execute-api.us-west-2.amazonaws.com"
+//const URL = "http://localhost:3001"
 
 export function getter(setter, url, debug=false) {
   axios({
@@ -10,7 +11,7 @@ export function getter(setter, url, debug=false) {
   .then(res => {
     setter([...res.data.data])
     if(debug){
-      console.log(res.data.data)
+      console.log(res)
     }
   })
   .catch(err => {
@@ -124,4 +125,17 @@ export function getWork(setter) {
   .catch(err => {
     console.log(err)
   })
+}
+
+  export function getGasReport(setter) {
+    axios({
+      method: 'GET',
+      url: URL + "/api/gas/report"
+    })
+    .then(res => {
+      setter(res.data.report)
+    })
+    .catch(err => {
+      console.log(err)
+    })
 }

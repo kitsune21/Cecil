@@ -7,6 +7,7 @@ import MovieReview from './Home/Movie/MovieReview';
 import Admin from './Admin/Admin';
 import AdminMovieReview from './Admin/AdminMovieReview';
 import Marathon from './Home/Marathon/Marathon'
+import GasTracker from './Tools/GasTracker/GasTracker.js';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path='/marathon' component={Marathon}/>
         <Route exact path='/____admin' component={Admin} />
         <Route exact path='/____admin/movie' component={AdminMovieReview} />
+        <Route exact path='/____gas' component={GasTracker} />
       </Switch>
     </div>
   );
