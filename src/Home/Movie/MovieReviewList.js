@@ -25,10 +25,10 @@ function MovieReviewList() {
   };
 
   function filterReviews() {
+    let returnMovieList = []
     if(filterByRanking === 'Cecil Rank'){
       return reviews.sort((a, b) => (a.Cecil_Rank > b.Cecil_Rank) ? 1 : -1);
     } else if(filterByRanking === 'Search by Movie Info') {
-      let returnMovieList = [];
       if(reviewSearch.length > 1){
         reviews.forEach(review => {
           if(fuzzy_match(review.Title, reviewSearch)) {
@@ -46,7 +46,6 @@ function MovieReviewList() {
         return reviews.sort((a, b) => (a.Cecil_Rank > b.Cecil_Rank) ? 1 : -1)
       }
     } else {
-      let returnMovieList = [];
       let listOfRanks = [];
       reviews.forEach(review => {
         review.rankings.forEach(rank => {
@@ -112,9 +111,9 @@ function MovieReviewList() {
           <option key={8}>Cecil Rank</option>
           <option key={9}>Search by Movie Info</option>
           {
-            rankingCategories.map(category => 
-              <option key={category.ID}>{category.Name}</option>
-            )
+            // rankingCategories.map(category => 
+            //   <option key={category.ID}>{category.Name}</option>
+            // )
           }
         </select>
         {
