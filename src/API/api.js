@@ -22,9 +22,30 @@ export function getter(setter, url, debug=false) {
 export function getMovieReviews(setter) {
   axios({
     method: "GET",
-    url: URL + "api/movie_reviews",
+    url: URL + "api/movie_reviews/cecil",
   })
   .then( res => setter(res.data.reviews))
+  .catch( err => console.log(err))
+}
+
+export function getMovieRankingByReviewID(setter, id) {
+  axios({
+    method: "GET",
+    url: URL + "api/rankings/" + id,
+  })
+  .then( res => setter(res.data.rankings))
+  .catch( err => console.log(err))
+}
+
+export  function getMovieContentByReviewID(setter, setSpoilerCount, id) {
+  axios({
+    method: "GET",
+    url: URL + "api/content/" + id,
+  })
+  .then( res => {
+    setter(res.data.content)
+    setSpoilerCount(res.data.spoilerCount)
+  })
   .catch( err => console.log(err))
 }
 
